@@ -1,0 +1,17 @@
+eclipse.preferences.version=1
+encoding//src/main/java/br/com/cotasparlamentares/cargafiscalize/business/DatabaseCotasParlamentares.java=UTF-8
+encoding//src/main/java/br/com/cotasparlamentares/cargafiscalize/business/ParseXmlCotasParlamentares.java=UTF-8
+encoding//src/main/java/br/com/cotasparlamentares/cargafiscalize/business/ScriptCotasParlamentares.java=UTF-8
+encoding//src/main/java/br/com/cotasparlamentares/cargafiscalize/dao/DespesaDao.java=UTF-8
+encoding//src/main/java/br/com/cotasparlamentares/cargafiscalize/dao/GenericDao.java=UTF-8
+encoding//src/main/java/br/com/cotasparlamentares/cargafiscalize/dao/HibernateGenericDao.java=UTF-8
+encoding//src/main/java/br/com/cotasparlamentares/cargafiscalize/domain/Despesa.java=UTF-8
+encoding//src/main/java/br/com/cotasparlamentares/cargafiscalize/domain/SingletonParametros.java=UTF-8
+encoding//src/main/java/br/com/cotasparlamentares/cargafiscalize/exception/CargaDespesaException.java=UTF-8
+encoding//src/main/java/br/com/cotasparlamentares/cargafiscalize/exception/DespesaReflectionException.java=UTF-8
+encoding//src/main/java/br/com/cotasparlamentares/cargafiscalize/exception/ExceptionBase.java=UTF-8
+encoding//src/main/java/br/com/cotasparlamentares/cargafiscalize/exception/ParseXMLDespesaException.java=UTF-8
+encoding//src/main/java/br/com/cotasparlamentares/cargafiscalize/execute/InicializadorSpring.java=UTF-8
+encoding//src/main/java/br/com/cotasparlamentares/cargafiscalize/service/CargaFiscalizeService.java=UTF-8
+encoding//src/main/java/br/com/cotasparlamentares/cargafiscalize/util/Utilidade.java=UTF-8
+encoding//src/main/resources/application-config.xml=UTF-8
