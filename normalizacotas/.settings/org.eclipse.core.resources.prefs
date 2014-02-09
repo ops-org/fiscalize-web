@@ -1,5 +1,6 @@
 eclipse.preferences.version=1
 encoding//src/main/java/br/com/cotasparlamentares/normalizacotas/business/NormalizaCotasParlamentares.java=UTF-8
+encoding//src/main/java/br/com/cotasparlamentares/normalizacotas/business/SalvarImagens.java=UTF-8
 encoding//src/main/java/br/com/cotasparlamentares/normalizacotas/dao/CotaDao.java=UTF-8
 encoding//src/main/java/br/com/cotasparlamentares/normalizacotas/dao/DespesaDao.java=UTF-8
 encoding//src/main/java/br/com/cotasparlamentares/normalizacotas/dao/GenericDao.java=UTF-8

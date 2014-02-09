@@ -13,7 +13,7 @@ public class InicializadorSpring {
 	// Teste a partir dessa classe. Ao iniciar o spring, o service anotado com @PostConstruct vai iniciar também. 
 	public static void main(String[] args) {
 		
-		if(args.length==1) {
+		if(args.length>=1) {
 		
 			int i=0;
 			String strCaminhoLog = args[i++];
@@ -21,6 +21,11 @@ public class InicializadorSpring {
 			// Singleton
 			SingletonParametros sParametros = SingletonParametros.getInstance();
 			sParametros.setCaminhoLog(strCaminhoLog);
+			
+			if(args.length==2) {
+				String strCaminhoImagens = args[i++];
+				sParametros.setCaminhoImagens(strCaminhoImagens);
+			}
 			
 			new ClassPathXmlApplicationContext(CONFIG_PATH);
 			
@@ -31,9 +36,10 @@ public class InicializadorSpring {
 	}
 	
 	public static void printUsage() {
-		System.out.println("Impossível iniciar sincronizador! Passe 1 parâmetro: "
+		System.out.println("Impossível iniciar sincronizador! Passe 2 parâmetros: "
 				+ "\n1) Caminho completo do arquivo de log. "
-				+ "\n Exemplo: java -jar normalizacotas.jar c:\\log.xml");
+				+ "\n2) (Opcional) Caminho do diretório para salvar as imagens de fotos deputados e partidos. "
+				+ "\n Exemplo: java -jar normalizacotas.jar c:\\log.xml c:\\imagens\\");
 	}
 
 }
