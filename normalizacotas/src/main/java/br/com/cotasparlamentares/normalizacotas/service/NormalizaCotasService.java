@@ -27,7 +27,7 @@ public class NormalizaCotasService {
 	@PostConstruct
 	public void init() {
 		// Normaliza banco de dados para o site cotas parlamentares			 
-		//normalizaCotasParlamentares.normalizarBancoDados();
+		normalizaCotasParlamentares.normalizarBancoDados();
 		
 		String diretorioImagens = SingletonParametros.getInstance().getCaminhoImagens();
 		if(diretorioImagens!=null) {

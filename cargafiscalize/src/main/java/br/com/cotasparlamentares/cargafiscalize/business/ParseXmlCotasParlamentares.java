@@ -33,7 +33,8 @@ import br.com.cotasparlamentares.cargafiscalize.util.Utilidade;
 @Component
 public class ParseXmlCotasParlamentares {
 
-	private static final String XML_ENCODING = "CP850";
+	//private static final String XML_ENCODING = "CP850";
+	private static final String XML_ENCODING = "UTF-16";
 	private static final String XML_DESPESA = "DESPESA";
 	
 	private Logger logger;

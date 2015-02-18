@@ -20,7 +20,7 @@
         p:driverClassName="com.mysql.jdbc.Driver" 
         p:url="jdbc:mysql://localhost:3306/cotas"
         p:username="root"
-        p:password="ihooyssb"
+        p:password="saph2mil"
         />
 
     <!-- HIBERNATE -->
