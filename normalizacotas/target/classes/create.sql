@@ -38,13 +38,14 @@ CREATE TABLE IF NOT EXISTS `cotas`.`Parlamentar` (
   `profissao` VARCHAR(200) NULL DEFAULT NULL,
   `ideCadastro` INT(11) NULL DEFAULT NULL,
   PRIMARY KEY (`parlamentarId`),
-  INDEX `fk_Parlamentar_Partido1_idx` (`partidoId` ASC),
   CONSTRAINT `fk_Parlamentar_Partido1`
     FOREIGN KEY (`partidoId`)
     REFERENCES `cotas`.`Partido` (`partidoId`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
+
+CREATE INDEX `fk_Parlamentar_Partido1_idx` ON `cotas`.`Parlamentar` (`partidoId` ASC);
 
 
 -- -----------------------------------------------------
@@ -54,9 +55,10 @@ CREATE TABLE IF NOT EXISTS `cotas`.`Uf` (
   `ufId` INT(11) NOT NULL AUTO_INCREMENT,
   `sigla` VARCHAR(2) NOT NULL,
   `nome` VARCHAR(45) NULL,
-  PRIMARY KEY (`ufId`),
-  UNIQUE INDEX `sigla_UNIQUE` (`sigla` ASC))
+  PRIMARY KEY (`ufId`))
 ENGINE = InnoDB;
+
+CREATE UNIQUE INDEX `sigla_UNIQUE` ON `cotas`.`Uf` (`sigla` ASC);
 
 
 -- -----------------------------------------------------
@@ -83,9 +85,6 @@ CREATE TABLE IF NOT EXISTS `cotas`.`NotaFiscal` (
   `valorGlosa` DECIMAL(10,2) NULL,
   `valorLiquido` DECIMAL(10,2) NULL,
   PRIMARY KEY (`notaFiscalId`),
-  INDEX `fk_NotaFiscal_Parlamentar1_idx` (`parlamentarId` ASC),
-  INDEX `fk_NotaFiscal_Cota1_idx` (`cotaId` ASC),
-  INDEX `fk_notafiscal_Uf1_idx` (`ufId` ASC),
   CONSTRAINT `fk_NotaFiscal_Parlamentar1`
     FOREIGN KEY (`parlamentarId`)
     REFERENCES `cotas`.`Parlamentar` (`parlamentarId`)
@@ -103,6 +102,13 @@ CREATE TABLE IF NOT EXISTS `cotas`.`NotaFiscal` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
+CREATE INDEX `fk_NotaFiscal_Parlamentar1_idx` ON `cotas`.`NotaFiscal` (`parlamentarId` ASC);
+
+CREATE INDEX `fk_NotaFiscal_Cota1_idx` ON `cotas`.`NotaFiscal` (`cotaId` ASC);
+
+CREATE INDEX `fk_notafiscal_Uf1_idx` ON `cotas`.`NotaFiscal` (`ufId` ASC);
+
+GRANT ALL ON `cotas`.* TO 'cotas';
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
