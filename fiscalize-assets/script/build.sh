@@ -1,13 +1,14 @@
 #!/bin/bash
-# CONSTROI JARS DA BUSCA
-COLOR='\033[0;31m'
+# CONSTROI JARS DA CARGA
+COLOR='\033[0;32m'
 COLOR_SEC='\033[0;33m'
+COLOR_TER='\033[0;31m'
 NO_COLOR='\033[0m'
 
 # cria diretórios
-/root/cotas/criarDiretoriosBase.sh
+/root/fiscalize/prepare.sh
 
-DIR_BASE="/root/cotas/build"
+DIR_BASE="/root/fiscalize/build"
 DIR_PROJETOS="$DIR_BASE/projetos"
 
 if [ ! -d "$DIR_PROJETOS" ]; then
@@ -61,4 +62,6 @@ cd $DIR_PROJECT_NORMALIZA
 mvn package
 cp $DIR_JAR_NORMALIZA $DIR_JAR_NORMALIZA_FINAL
 
-echo -e "${COLOR_SEC}CRIACAO DE JAR FINALIZADAS EM\n ${COLOR}Carga: $DIR_JAR_CARGA_FINAL\n Normaliza: $DIR_JAR_NORMALIZA_FINAL\n"
+echo -e "${COLOR_SEC}CRIACAO DE JAR FINALIZADAS EM\n ${COLOR}Carga: $DIR_JAR_CARGA_FINAL\n Normaliza: $DIR_JAR_NORMALIZA_FINAL ${NO_COLOR}\n"
+
+exit 1

@@ -2,29 +2,23 @@ SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 
-DROP SCHEMA IF EXISTS `fiscalize` ;
 CREATE SCHEMA IF NOT EXISTS `fiscalize` DEFAULT CHARACTER SET utf8 ;
 USE `fiscalize` ;
 
 -- -----------------------------------------------------
--- Table `fiscalize`.`cota`
+-- Table `fiscalize`.`Cota`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `fiscalize`.`cota` ;
-
-CREATE TABLE IF NOT EXISTS `fiscalize`.`cota` (
+CREATE TABLE IF NOT EXISTS `fiscalize`.`Cota` (
   `cotaId` INT(11) NOT NULL AUTO_INCREMENT,
   `nome` VARCHAR(100) NOT NULL,
   PRIMARY KEY (`cotaId`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8;
+ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `fiscalize`.`despesa`
+-- Table `fiscalize`.`Despesa`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `fiscalize`.`despesa` ;
-
-CREATE TABLE IF NOT EXISTS `fiscalize`.`despesa` (
+CREATE TABLE IF NOT EXISTS `fiscalize`.`Despesa` (
   `despesaId` INT(11) NOT NULL AUTO_INCREMENT,
   `codLegislatura` VARCHAR(500) NULL DEFAULT NULL,
   `datEmissao` VARCHAR(500) NULL DEFAULT NULL,
@@ -53,30 +47,24 @@ CREATE TABLE IF NOT EXISTS `fiscalize`.`despesa` (
   `vlrGlosa` VARCHAR(500) NULL DEFAULT NULL,
   `vlrLiquido` VARCHAR(500) NULL DEFAULT NULL,
   PRIMARY KEY (`despesaId`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8;
+ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `fiscalize`.`partido`
+-- Table `fiscalize`.`Partido`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `fiscalize`.`partido` ;
-
-CREATE TABLE IF NOT EXISTS `fiscalize`.`partido` (
+CREATE TABLE IF NOT EXISTS `fiscalize`.`Partido` (
   `partidoId` INT(11) NOT NULL AUTO_INCREMENT,
   `sigla` VARCHAR(10) NOT NULL,
   `nome` VARCHAR(200) NULL DEFAULT NULL,
   PRIMARY KEY (`partidoId`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8;
+ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `fiscalize`.`parlamentar`
+-- Table `fiscalize`.`Parlamentar`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `fiscalize`.`parlamentar` ;
-
-CREATE TABLE IF NOT EXISTS `fiscalize`.`parlamentar` (
+CREATE TABLE IF NOT EXISTS `fiscalize`.`Parlamentar` (
   `parlamentarId` INT(11) NOT NULL AUTO_INCREMENT,
   `partidoId` INT(11) NOT NULL,
   `nome` VARCHAR(200) NOT NULL,
@@ -87,37 +75,31 @@ CREATE TABLE IF NOT EXISTS `fiscalize`.`parlamentar` (
   PRIMARY KEY (`parlamentarId`),
   CONSTRAINT `fk_Parlamentar_Partido1`
     FOREIGN KEY (`partidoId`)
-    REFERENCES `fiscalize`.`partido` (`partidoId`)
+    REFERENCES `fiscalize`.`Partido` (`partidoId`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8;
+ENGINE = InnoDB;
 
-CREATE INDEX `fk_Parlamentar_Partido1_idx` ON `fiscalize`.`parlamentar` (`partidoId` ASC);
+CREATE INDEX `fk_Parlamentar_Partido1_idx` ON `fiscalize`.`Parlamentar` (`partidoId` ASC);
 
 
 -- -----------------------------------------------------
--- Table `fiscalize`.`uf`
+-- Table `fiscalize`.`Uf`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `fiscalize`.`uf` ;
-
-CREATE TABLE IF NOT EXISTS `fiscalize`.`uf` (
+CREATE TABLE IF NOT EXISTS `fiscalize`.`Uf` (
   `ufId` INT(11) NOT NULL AUTO_INCREMENT,
   `sigla` VARCHAR(2) NOT NULL,
   `nome` VARCHAR(45) NULL DEFAULT NULL,
   PRIMARY KEY (`ufId`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8;
+ENGINE = InnoDB;
 
-CREATE UNIQUE INDEX `sigla_UNIQUE` ON `fiscalize`.`uf` (`sigla` ASC);
+CREATE UNIQUE INDEX `sigla_UNIQUE` ON `fiscalize`.`Uf` (`sigla` ASC);
 
 
 -- -----------------------------------------------------
--- Table `fiscalize`.`notafiscal`
+-- Table `fiscalize`.`NotaFiscal`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `fiscalize`.`notafiscal` ;
-
-CREATE TABLE IF NOT EXISTS `fiscalize`.`notafiscal` (
+CREATE TABLE IF NOT EXISTS `fiscalize`.`NotaFiscal` (
   `notaFiscalId` INT(11) NOT NULL AUTO_INCREMENT,
   `parlamentarId` INT(11) NOT NULL,
   `cotaId` INT(11) NOT NULL,
@@ -140,35 +122,32 @@ CREATE TABLE IF NOT EXISTS `fiscalize`.`notafiscal` (
   PRIMARY KEY (`notaFiscalId`),
   CONSTRAINT `fk_NotaFiscal_Cota1`
     FOREIGN KEY (`cotaId`)
-    REFERENCES `fiscalize`.`cota` (`cotaId`)
+    REFERENCES `fiscalize`.`Cota` (`cotaId`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_NotaFiscal_Parlamentar1`
     FOREIGN KEY (`parlamentarId`)
-    REFERENCES `fiscalize`.`parlamentar` (`parlamentarId`)
+    REFERENCES `fiscalize`.`Parlamentar` (`parlamentarId`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_notafiscal_Uf1`
     FOREIGN KEY (`ufId`)
-    REFERENCES `fiscalize`.`uf` (`ufId`)
+    REFERENCES `fiscalize`.`Uf` (`ufId`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8;
+ENGINE = InnoDB;
 
-CREATE INDEX `fk_NotaFiscal_Parlamentar1_idx` ON `fiscalize`.`notafiscal` (`parlamentarId` ASC);
+CREATE INDEX `fk_NotaFiscal_Parlamentar1_idx` ON `fiscalize`.`NotaFiscal` (`parlamentarId` ASC);
 
-CREATE INDEX `fk_NotaFiscal_Cota1_idx` ON `fiscalize`.`notafiscal` (`cotaId` ASC);
+CREATE INDEX `fk_NotaFiscal_Cota1_idx` ON `fiscalize`.`NotaFiscal` (`cotaId` ASC);
 
-CREATE INDEX `fk_notafiscal_Uf1_idx` ON `fiscalize`.`notafiscal` (`ufId` ASC);
+CREATE INDEX `fk_notafiscal_Uf1_idx` ON `fiscalize`.`NotaFiscal` (`ufId` ASC);
 
 
 -- -----------------------------------------------------
--- Table `fiscalize`.`usuario`
+-- Table `fiscalize`.`Usuario`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `fiscalize`.`usuario` ;
-
-CREATE TABLE IF NOT EXISTS `fiscalize`.`usuario` (
+CREATE TABLE IF NOT EXISTS `fiscalize`.`Usuario` (
   `usuarioId` INT NOT NULL AUTO_INCREMENT,
   `usuario` VARCHAR(45) NULL,
   `senha` VARCHAR(45) NULL,
@@ -182,11 +161,9 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `fiscalize`.`suspeita`
+-- Table `fiscalize`.`Suspeita`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `fiscalize`.`suspeita` ;
-
-CREATE TABLE IF NOT EXISTS `fiscalize`.`suspeita` (
+CREATE TABLE IF NOT EXISTS `fiscalize`.`Suspeita` (
   `suspeitaId` INT NOT NULL AUTO_INCREMENT,
   `notaFiscalId` INT(11) NOT NULL,
   `usuarioId` INT NOT NULL,
@@ -199,27 +176,25 @@ CREATE TABLE IF NOT EXISTS `fiscalize`.`suspeita` (
   PRIMARY KEY (`suspeitaId`),
   CONSTRAINT `fk_Suspeita_notafiscal1`
     FOREIGN KEY (`notaFiscalId`)
-    REFERENCES `fiscalize`.`notafiscal` (`notaFiscalId`)
+    REFERENCES `fiscalize`.`NotaFiscal` (`notaFiscalId`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_Suspeita_Usuario1`
     FOREIGN KEY (`usuarioId`)
-    REFERENCES `fiscalize`.`usuario` (`usuarioId`)
+    REFERENCES `fiscalize`.`Usuario` (`usuarioId`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
-CREATE INDEX `fk_Suspeita_notafiscal1_idx` ON `fiscalize`.`suspeita` (`notaFiscalId` ASC);
+CREATE INDEX `fk_Suspeita_notafiscal1_idx` ON `fiscalize`.`Suspeita` (`notaFiscalId` ASC);
 
-CREATE INDEX `fk_Suspeita_Usuario1_idx` ON `fiscalize`.`suspeita` (`usuarioId` ASC);
+CREATE INDEX `fk_Suspeita_Usuario1_idx` ON `fiscalize`.`Suspeita` (`usuarioId` ASC);
 
 
 -- -----------------------------------------------------
--- Table `fiscalize`.`analise`
+-- Table `fiscalize`.`Analise`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `fiscalize`.`analise` ;
-
-CREATE TABLE IF NOT EXISTS `fiscalize`.`analise` (
+CREATE TABLE IF NOT EXISTS `fiscalize`.`Analise` (
   `analiseId` INT NOT NULL,
   `notaFiscalId` INT(11) NOT NULL,
   `responsavelUsuarioId` INT NOT NULL,
@@ -228,24 +203,20 @@ CREATE TABLE IF NOT EXISTS `fiscalize`.`analise` (
   PRIMARY KEY (`analiseId`),
   CONSTRAINT `fk_analise_notafiscal1`
     FOREIGN KEY (`notaFiscalId`)
-    REFERENCES `fiscalize`.`notafiscal` (`notaFiscalId`)
+    REFERENCES `fiscalize`.`NotaFiscal` (`notaFiscalId`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_analise_usuario1`
     FOREIGN KEY (`responsavelUsuarioId`)
-    REFERENCES `fiscalize`.`usuario` (`usuarioId`)
+    REFERENCES `fiscalize`.`Usuario` (`usuarioId`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
-CREATE INDEX `fk_analise_notafiscal1_idx` ON `fiscalize`.`analise` (`notaFiscalId` ASC);
+CREATE INDEX `fk_analise_notafiscal1_idx` ON `fiscalize`.`Analise` (`notaFiscalId` ASC);
 
-CREATE INDEX `fk_analise_usuario1_idx` ON `fiscalize`.`analise` (`responsavelUsuarioId` ASC);
+CREATE INDEX `fk_analise_usuario1_idx` ON `fiscalize`.`Analise` (`responsavelUsuarioId` ASC);
 
-SET SQL_MODE = '';
-GRANT USAGE ON *.* TO fiscalize;
- DROP USER fiscalize;
-SET SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 CREATE USER 'fiscalize' IDENTIFIED BY 'fiscalize';
 
 GRANT ALL ON `fiscalize`.* TO 'fiscalize';
