@@ -246,7 +246,7 @@ SET SQL_MODE = '';
 GRANT USAGE ON *.* TO fiscalize;
  DROP USER fiscalize;
 SET SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
-CREATE USER 'fiscalize' IDENTIFIED BY 'fiscalize&890';
+CREATE USER 'fiscalize' IDENTIFIED BY 'fiscalize';
 
 GRANT ALL ON `fiscalize`.* TO 'fiscalize';
 
