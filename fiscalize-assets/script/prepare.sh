@@ -9,14 +9,20 @@ echo -e "${COLOR_SEC}VERIFICANDO DIRETORIOS${NO_COLOR}\n"
 
 # cria diretórios
 DIR="/root"
-DIR_COTAS="$DIR/fiscalize"
-DIR_BUILD="$DIR_COTAS/build"
+DIR_FISCALIZE="$DIR/fiscalize"
+DIR_BKP="$DIR_FISCALIZE/bkp"
+DIR_BUILD="$DIR_FISCALIZE/build"
 DIR_LOGS="$DIR_BUILD/logs"
 DIR_IMAGENS="$DIR_BUILD/imagens"
 
-if [ ! -d "$DIR_COTAS" ]; then
-	echo -e "${COLOR}Criando diretorio BASE: $DIR_COTAS ${NO_COLOR}"
-	mkdir $DIR_COTAS
+if [ ! -d "$DIR_FISCALIZE" ]; then
+	echo -e "${COLOR}Criando diretorio BASE: $DIR_FISCALIZE ${NO_COLOR}"
+	mkdir $DIR_FISCALIZE
+fi
+
+if [ ! -d "$DIR_BKP" ]; then
+	echo -e "${COLOR}Criando diretorio BKP: $DIR_BKP ${NO_COLOR}"
+	mkdir $DIR_BKP
 fi
 
 if [ ! -d "$DIR_BUILD" ]; then

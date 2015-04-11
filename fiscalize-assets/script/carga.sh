@@ -8,7 +8,15 @@ NO_COLOR='\033[0m'
 # cria diretórios
 /root/fiscalize/prepare.sh
 
-DIR_BUILD="/root/fiscalize/build"
+DB_PROTOCOL="TCP"
+DB_USER="fiscalize"
+DB_PASSWORD="fiscalize"
+DB_DATABASE="fiscalize"
+
+DIR="/root"
+DIR_FISCALIZE="$DIR/fiscalize"
+DIR_BKP="$DIR_FISCALIZE/bkp"
+DIR_BUILD="$DIR_FISCALIZE/build"
 DIR_LOGS="$DIR_BUILD/logs/"
 DIR_IMAGENS="$DIR_BUILD/imagens/"
 DIR_DOWNLOAD="$DIR_BUILD/downloads"
@@ -42,6 +50,12 @@ wget -N $ZIP_URL
 
 echo -e "${COLOR}Unzip: $ZIP_NAME ${NO_COLOR}"
 unzip -o $ZIP_NAME
+
+# BKP banco atual 
+DUMP_NAME=bkp.sql.`date +"%Y%m%d_%H%M%S"`
+DUMP_PATH="$DIR_BKP/$DUMP_NAME"
+echo -e "${COLOR}Criando BKP DATABASE ATUAL: $DUMP_PATH ${NO_COLOR}"
+mysqldump --opt --protocol=${DB_PROTOCOL} --user=${DB_USER} --password=${DB_PASSWORD} ${DB_DATABASE} > $DUMP_PATH
 
 # le arquivo xml e popula banco de dados (carga)
 java -jar $JAR_CARGA DB $XML_NAME $DIR_LOGS
