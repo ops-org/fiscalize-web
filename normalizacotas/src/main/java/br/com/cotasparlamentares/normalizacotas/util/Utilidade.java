@@ -13,6 +13,7 @@ public class Utilidade {
 
 	// Log
 	private static final String LOGGER_PADRAO = "br.com.cotasparlamentares.normalizacotas";
+	private static final String LOG_FILE_NAME = "normaliza"; // 1Mb tamanho max do log
 	private static final int LOG_LIMIT = 1024 * 1024; // 1Mb tamanho max do log
 	private static final int LOG_FILE_COUNT = 20; // arquivos de log, no max
 	
@@ -34,7 +35,7 @@ public class Utilidade {
 				
 				SingletonParametros sParametros = SingletonParametros.getInstance();
 				
-				FileHandler fileHandler = new FileHandler(sParametros.getCaminhoLog(), LOG_LIMIT, LOG_FILE_COUNT, false);
+				FileHandler fileHandler = new FileHandler(sParametros.getCaminhoLog() + LOG_FILE_NAME, LOG_LIMIT, LOG_FILE_COUNT, false);
 				fileHandler.setLevel(Level.INFO);
 				fileHandler.setEncoding("UTF-8");
 				fileHandler.setFormatter(new CustomFormatter());
