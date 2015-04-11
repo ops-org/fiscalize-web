@@ -42,7 +42,7 @@ public class DatabaseCotasParlamentares {
 				despesaDao.save(despesa);
 				validos++;
 			} catch(HibernateException e) {
-				logger.log(Level.WARNING, "Problema ao salvar registro no banco de dados: " + iteracao + " Erro: " + e.getMessage());
+				logger.log(Level.WARNING, "Erro ao salvar DESPESA: " + iteracao + " Erro: " + e.getLocalizedMessage());
 			}
 			
 			iteracao++;
