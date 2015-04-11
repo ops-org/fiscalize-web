@@ -2,12 +2,15 @@ SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 
+DROP SCHEMA IF EXISTS `fiscalize` ;
 CREATE SCHEMA IF NOT EXISTS `fiscalize` DEFAULT CHARACTER SET utf8 ;
 USE `fiscalize` ;
 
 -- -----------------------------------------------------
 -- Table `fiscalize`.`Cota`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `fiscalize`.`Cota` ;
+
 CREATE TABLE IF NOT EXISTS `fiscalize`.`Cota` (
   `cotaId` INT(11) NOT NULL AUTO_INCREMENT,
   `nome` VARCHAR(100) NOT NULL,
@@ -18,41 +21,47 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `fiscalize`.`Despesa`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `fiscalize`.`Despesa` ;
+
 CREATE TABLE IF NOT EXISTS `fiscalize`.`Despesa` (
   `despesaId` INT(11) NOT NULL AUTO_INCREMENT,
-  `codLegislatura` VARCHAR(500) NULL DEFAULT NULL,
-  `datEmissao` VARCHAR(500) NULL DEFAULT NULL,
-  `ideCadastro` VARCHAR(500) NULL DEFAULT NULL,
-  `indTipoDocumento` VARCHAR(500) NULL DEFAULT NULL,
-  `nuCarteiraParlamentar` VARCHAR(500) NULL DEFAULT NULL,
-  `nuLegislatura` VARCHAR(500) NULL DEFAULT NULL,
-  `numAno` VARCHAR(500) NULL DEFAULT NULL,
+  `codLegislatura` VARCHAR(10) NULL DEFAULT NULL,
+  `datEmissao` VARCHAR(30) NULL DEFAULT NULL,
+  `ideCadastro` VARCHAR(10) NULL DEFAULT NULL,
+  `indTipoDocumento` VARCHAR(10) NULL DEFAULT NULL,
+  `nuCarteiraParlamentar` VARCHAR(10) NULL DEFAULT NULL,
+  `nuLegislatura` VARCHAR(10) NULL DEFAULT NULL,
+  `numAno` VARCHAR(10) NULL DEFAULT NULL,
   `numEspecificacaoSubCota` VARCHAR(500) NULL DEFAULT NULL,
-  `numLote` VARCHAR(500) NULL DEFAULT NULL,
-  `numMes` VARCHAR(500) NULL DEFAULT NULL,
+  `numLote` VARCHAR(20) NULL DEFAULT NULL,
+  `numMes` VARCHAR(10) NULL DEFAULT NULL,
   `numParcela` VARCHAR(500) NULL DEFAULT NULL,
   `numRessarcimento` VARCHAR(500) NULL DEFAULT NULL,
   `numSubCota` VARCHAR(500) NULL DEFAULT NULL,
-  `sgPartido` VARCHAR(500) NULL DEFAULT NULL,
-  `sgUF` VARCHAR(500) NULL DEFAULT NULL,
+  `sgPartido` VARCHAR(10) NULL DEFAULT NULL,
+  `sgUF` VARCHAR(10) NULL DEFAULT NULL,
   `txNomeParlamentar` VARCHAR(500) NULL DEFAULT NULL,
-  `txtCNPJCPF` VARCHAR(500) NULL DEFAULT NULL,
+  `txtCNPJCPF` VARCHAR(20) NULL DEFAULT NULL,
   `txtDescricao` VARCHAR(500) NULL DEFAULT NULL,
   `txtDescricaoEspecificacao` VARCHAR(500) NULL DEFAULT NULL,
   `txtFornecedor` VARCHAR(500) NULL DEFAULT NULL,
   `txtNumero` VARCHAR(500) NULL DEFAULT NULL,
   `txtPassageiro` VARCHAR(500) NULL DEFAULT NULL,
   `txtTrecho` VARCHAR(500) NULL DEFAULT NULL,
-  `vlrDocumento` VARCHAR(500) NULL DEFAULT NULL,
-  `vlrGlosa` VARCHAR(500) NULL DEFAULT NULL,
-  `vlrLiquido` VARCHAR(500) NULL DEFAULT NULL,
+  `vlrDocumento` VARCHAR(20) NULL DEFAULT NULL,
+  `vlrGlosa` VARCHAR(20) NULL DEFAULT NULL,
+  `vlrLiquido` VARCHAR(20) NULL DEFAULT NULL,
   PRIMARY KEY (`despesaId`))
 ENGINE = InnoDB;
+
+CREATE UNIQUE INDEX `UNIQUE_CARGA` ON `fiscalize`.`Despesa` (`ideCadastro` ASC, `indTipoDocumento` ASC, `nuCarteiraParlamentar` ASC, `nuLegislatura` ASC, `numAno` ASC, `numMes` ASC, `numLote` ASC, `sgPartido` ASC, `sgUF` ASC, `txtCNPJCPF` ASC, `vlrDocumento` ASC, `vlrGlosa` ASC, `vlrLiquido` ASC, `codLegislatura` ASC, `datEmissao` ASC);
 
 
 -- -----------------------------------------------------
 -- Table `fiscalize`.`Partido`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `fiscalize`.`Partido` ;
+
 CREATE TABLE IF NOT EXISTS `fiscalize`.`Partido` (
   `partidoId` INT(11) NOT NULL AUTO_INCREMENT,
   `sigla` VARCHAR(10) NOT NULL,
@@ -64,6 +73,8 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `fiscalize`.`Parlamentar`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `fiscalize`.`Parlamentar` ;
+
 CREATE TABLE IF NOT EXISTS `fiscalize`.`Parlamentar` (
   `parlamentarId` INT(11) NOT NULL AUTO_INCREMENT,
   `partidoId` INT(11) NOT NULL,
@@ -86,6 +97,8 @@ CREATE INDEX `fk_Parlamentar_Partido1_idx` ON `fiscalize`.`Parlamentar` (`partid
 -- -----------------------------------------------------
 -- Table `fiscalize`.`Uf`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `fiscalize`.`Uf` ;
+
 CREATE TABLE IF NOT EXISTS `fiscalize`.`Uf` (
   `ufId` INT(11) NOT NULL AUTO_INCREMENT,
   `sigla` VARCHAR(2) NOT NULL,
@@ -99,6 +112,8 @@ CREATE UNIQUE INDEX `sigla_UNIQUE` ON `fiscalize`.`Uf` (`sigla` ASC);
 -- -----------------------------------------------------
 -- Table `fiscalize`.`NotaFiscal`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `fiscalize`.`NotaFiscal` ;
+
 CREATE TABLE IF NOT EXISTS `fiscalize`.`NotaFiscal` (
   `notaFiscalId` INT(11) NOT NULL AUTO_INCREMENT,
   `parlamentarId` INT(11) NOT NULL,
@@ -147,6 +162,8 @@ CREATE INDEX `fk_notafiscal_Uf1_idx` ON `fiscalize`.`NotaFiscal` (`ufId` ASC);
 -- -----------------------------------------------------
 -- Table `fiscalize`.`Usuario`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `fiscalize`.`Usuario` ;
+
 CREATE TABLE IF NOT EXISTS `fiscalize`.`Usuario` (
   `usuarioId` INT NOT NULL AUTO_INCREMENT,
   `usuario` VARCHAR(45) NULL,
@@ -163,6 +180,8 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `fiscalize`.`Suspeita`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `fiscalize`.`Suspeita` ;
+
 CREATE TABLE IF NOT EXISTS `fiscalize`.`Suspeita` (
   `suspeitaId` INT NOT NULL AUTO_INCREMENT,
   `notaFiscalId` INT(11) NOT NULL,
@@ -194,6 +213,8 @@ CREATE INDEX `fk_Suspeita_Usuario1_idx` ON `fiscalize`.`Suspeita` (`usuarioId` A
 -- -----------------------------------------------------
 -- Table `fiscalize`.`Analise`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `fiscalize`.`Analise` ;
+
 CREATE TABLE IF NOT EXISTS `fiscalize`.`Analise` (
   `analiseId` INT NOT NULL,
   `notaFiscalId` INT(11) NOT NULL,
@@ -217,6 +238,10 @@ CREATE INDEX `fk_analise_notafiscal1_idx` ON `fiscalize`.`Analise` (`notaFiscalI
 
 CREATE INDEX `fk_analise_usuario1_idx` ON `fiscalize`.`Analise` (`responsavelUsuarioId` ASC);
 
+SET SQL_MODE = '';
+GRANT USAGE ON *.* TO fiscalize;
+ DROP USER fiscalize;
+SET SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 CREATE USER 'fiscalize' IDENTIFIED BY 'fiscalize';
 
 GRANT ALL ON `fiscalize`.* TO 'fiscalize';
