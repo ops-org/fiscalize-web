@@ -1,3 +1,5 @@
 .project
 fiscalize-android/.idea/
 cargafiscalize/target/
+fiscalize-java-base/target/
+fiscalize-java-carga/target/

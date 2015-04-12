@@ -1,0 +1,8 @@
+eclipse.preferences.version=1
+encoding//src/main/java/br/net/ops/fiscalize/business/DatabaseCotasParlamentares.java=UTF-8
+encoding//src/main/java/br/net/ops/fiscalize/business/ParseXmlCotasParlamentares.java=UTF-8
+encoding//src/main/java/br/net/ops/fiscalize/business/ScriptCotasParlamentares.java=UTF-8
+encoding//src/main/java/br/net/ops/fiscalize/domain/SingletonParametros.java=UTF-8
+encoding//src/main/java/br/net/ops/fiscalize/execute/InicializadorSpring.java=UTF-8
+encoding//src/main/java/br/net/ops/fiscalize/service/CargaFiscalizeService.java=UTF-8
+encoding//src/main/resources/application-config.xml=UTF-8
