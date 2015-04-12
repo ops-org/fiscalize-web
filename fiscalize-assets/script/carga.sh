@@ -44,6 +44,7 @@ cd $DIR_DOWNLOAD
 ZIP_URL="http://www.camara.gov.br/cotas/AnoAtual.zip"
 ZIP_NAME="AnoAtual.zip"
 XML_NAME="AnoAtual.xml"
+XML_PATH="$DIR_DOWNLOAD/$XML_NAME"
 
 echo -e "${COLOR}Download: $ZIP_URL ${NO_COLOR}"
 wget -N $ZIP_URL
@@ -64,7 +65,8 @@ zip $DUMP_NAME_ZIP $DUMP_NAME
 rm $DUMP_NAME
 
 # le arquivo xml e popula banco de dados (carga)
-java -jar $JAR_CARGA DB $XML_NAME $DIR_LOGS
+echo -e "${COLOR}Executando carga do XML: $DUMP_PATH_ZIP ${NO_COLOR}"
+java -jar $JAR_CARGA DB $XML_PATH $DIR_LOGS
 
 # le banco desnormalizado e normaliza (carga)
 java -jar $JAR_NORMALIZA $DIR_LOGS $DIR_IMAGENS
