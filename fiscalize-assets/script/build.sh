@@ -21,39 +21,41 @@ fi
 
 cd $DIR_PROJETOS
 # puxa projetos do git
+DIR_GIT="$DIR_PROJETOS/fiscalize"
 REPOSITORY="https://dfavoratti@bitbucket.org/dfavoratti/fiscalize.git"
 	
 echo -e "${COLOR}Puxando projetos GIT: $REPOSITORY ${NO_COLOR}"
 git clone $REPOSITORY
 
-# compila JAR CARGA FISCALIZE
-echo -e "\n${COLOR_SEC}COMPILANDO JAR CARGA FISCALIZE ${NO_COLOR}\n"
+# compila BASE JAVA
+echo -e "\n${COLOR_SEC}COMPILANDO BASE JAVA ${NO_COLOR}\n"
+DIR_PROJECT_BASE="$DIR_GIT/fiscalize-java-base"
+
+cd $DIR_PROJECT_BASE
+mvn clean install
+
+# compila JAR CARGA
+echo -e "\n${COLOR_SEC}COMPILANDO JAR CARGA ${NO_COLOR}\n"
 	
-DIR_GIT="$DIR_PROJETOS/fiscalize"
-DIR_PROJECT_CARGA="$DIR_GIT/cargafiscalize"
+DIR_CARGA_PROJECT="$DIR_GIT/fiscalize-java-carga"
+DIR_CARGA_JAR="$DIR_CARGA_PROJECT/target/fiscalize-java-carga-1.0.jar"
+DIR_CARGA_JAR_FINAL="$DIR_BUILD/fiscalize-java-carga.jar"
 
-DIR_JAR_CARGA="$DIR_PROJECT_CARGA/target/cargafiscalize-1.0.jar"
-DIR_JAR_CARGA_FINAL="$DIR_BUILD/cargafiscalize.jar"
-
-cd $DIR_PROJECT_CARGA
-
+cd $DIR_CARGA_PROJECT
 mvn package
-cp $DIR_JAR_CARGA $DIR_JAR_CARGA_FINAL
+cp $DIR_CARGA_JAR $DIR_CARGA_JAR_FINAL
 
-# compila JAR NORMALIZA CARGA
-echo -e "\n${COLOR_SEC}COMPILANDO JAR NORMALIZA CARGA ${NO_COLOR}\n"
+# compila JAR NORMALIZA
+echo -e "\n${COLOR_SEC}COMPILANDO JAR NORMALIZA ${NO_COLOR}\n"
 
-DIR_GIT="$DIR_PROJETOS/fiscalize"
-DIR_PROJECT_NORMALIZA="$DIR_GIT/normalizacotas"
+DIR_NORMALIZA_PROJECT="$DIR_GIT/fiscalize-java-normaliza"
+DIR_NORMALIZA_JAR="$DIR_NORMALIZA_PROJECT/target/fiscalize-java-normaliza-1.0.jar"
+DIR_NORMALIZA_JAR_FINAL="$DIR_BUILD/fiscalize-java-normaliza.jar"
 
-DIR_JAR_NORMALIZA="$DIR_PROJECT_NORMALIZA/target/normalizacotas-1.0.jar"
-DIR_JAR_NORMALIZA_FINAL="$DIR_BUILD/normalizacotas.jar"
-
-cd $DIR_PROJECT_NORMALIZA
-
+cd $DIR_NORMALIZA_PROJECT
 mvn package
-cp $DIR_JAR_NORMALIZA $DIR_JAR_NORMALIZA_FINAL
+cp $DIR_NORMALIZA_JAR $DIR_NORMALIZA_JAR_FINAL
 
-echo -e "${COLOR_SEC}CRIACAO DE JAR FINALIZADAS EM\n ${COLOR}Carga: $DIR_JAR_CARGA_FINAL\n Normaliza: $DIR_JAR_NORMALIZA_FINAL ${NO_COLOR}\n"
+echo -e "${COLOR_SEC}CRIACAO DE JAR FINALIZADAS EM\n ${COLOR}Carga: $DIR_CARGA_JAR_FINAL\n Normaliza: $DIR_NORMALIZA_JAR_FINAL ${NO_COLOR}\n"
 
 exit 1

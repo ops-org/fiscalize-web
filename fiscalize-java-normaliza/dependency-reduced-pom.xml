@@ -2,8 +2,8 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>br.net.ops.fiscalize</groupId>
-  <artifactId>fiscalize-java-carga</artifactId>
-  <name>fiscalize-java-carga</name>
+  <artifactId>fiscalize-java-normaliza</artifactId>
+  <name>fiscalize-java-normaliza</name>
   <version>1.0</version>
   <build>
     <plugins>
@@ -35,14 +35,6 @@
       </plugin>
     </plugins>
   </build>
-  <dependencies>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>3.8.1</version>
-      <scope>test</scope>
-    </dependency>
-  </dependencies>
   <properties>
     <app.version>UTF-8</app.version>
     <org.springframework.version>3.1.4.RELEASE</org.springframework.version>

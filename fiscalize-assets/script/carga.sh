@@ -17,12 +17,12 @@ DIR="/root"
 DIR_FISCALIZE="$DIR/fiscalize"
 DIR_BKP="$DIR_FISCALIZE/bkp"
 DIR_BUILD="$DIR_FISCALIZE/build"
-DIR_LOGS="$DIR_FISCALIZE/logs"
+DIR_LOGS="$DIR_FISCALIZE/logs/"
 DIR_IMAGENS="$DIR_BUILD/imagens/"
 DIR_DOWNLOAD="$DIR_BUILD/downloads"
 
-JAR_CARGA="$DIR_BUILD/cargafiscalize.jar"
-JAR_NORMALIZA="$DIR_BUILD/normalizacotas.jar"
+JAR_CARGA="$DIR_BUILD/fiscalize-java-carga.jar"
+JAR_NORMALIZA="$DIR_BUILD/fiscalize-java-normaliza.jar"
 
 if [ ! -f "$JAR_CARGA" ]; then
 	echo -e "${COLOR_TER}Nao existe o JAR de carga: $JAR_CARGA (execute build.sh antes) ${NO_COLOR}"
