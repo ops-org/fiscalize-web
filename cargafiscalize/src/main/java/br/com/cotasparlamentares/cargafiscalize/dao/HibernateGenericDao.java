@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.hibernate.Criteria;
 import org.hibernate.LockOptions;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Example;
 import org.hibernate.criterion.Order;
@@ -118,7 +119,7 @@ public abstract class HibernateGenericDao<T, ID extends Serializable> implements
 		this.sessionFactory.getCurrentSession().saveOrUpdate(entity);
 		return entity;
 	}
-	
+
 	public void update(T entity) {
 		this.sessionFactory.getCurrentSession().update(entity);
 	}
@@ -146,6 +147,10 @@ public abstract class HibernateGenericDao<T, ID extends Serializable> implements
 	
 	public void flush(){
 		this.sessionFactory.getCurrentSession().flush();
+	}
+	
+	public void close(){
+		this.sessionFactory.getCurrentSession().close();
 	}
 	
 	public void evict(T entity){

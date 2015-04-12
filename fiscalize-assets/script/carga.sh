@@ -72,6 +72,6 @@ fi
 echo -e "${COLOR}Copiando imagens de partidos e deputados em: $DIR_IMAGENS_WEB ${NO_COLOR}"
 cp -R "$DIR_IMAGENS/*" $DIR_IMAGENS_WEB
 
-echo -e "${COLOR_SEC}CARGA FINALIZADA ${NO_COLOR}\n"
+echo -e "\n${COLOR_SEC}CARGA FINALIZADA ${NO_COLOR}\n"
 
 exit 1

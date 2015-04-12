@@ -33,7 +33,7 @@ echo -e "${COLOR}Puxando projetos GIT: $REPOSITORY ${NO_COLOR}"
 git clone $REPOSITORY
 
 # compila JAR CARGA FISCALIZE
-echo -e "${COLOR_SEC}COMPILANDO JAR CARGA FISCALIZE ${NO_COLOR}\n"
+echo -e "\n${COLOR_SEC}COMPILANDO JAR CARGA FISCALIZE ${NO_COLOR}\n"
 	
 DIR_GIT="$DIR_PROJETOS/fiscalize"
 DIR_PROJECT_CARGA="$DIR_GIT/cargafiscalize"
@@ -41,14 +41,13 @@ DIR_PROJECT_CARGA="$DIR_GIT/cargafiscalize"
 DIR_JAR_CARGA="$DIR_PROJECT_CARGA/target/cargafiscalize-1.0.jar"
 DIR_JAR_CARGA_FINAL="$DIR_BASE/cargafiscalize.jar"
 
-echo -e "${COLOR}Entrando no diretorio GIT: $DIR_PROJECT_CARGA ${NO_COLOR}"
 cd $DIR_PROJECT_CARGA
 
 mvn package
 cp $DIR_JAR_CARGA $DIR_JAR_CARGA_FINAL
 
 # compila JAR NORMALIZA CARGA
-echo -e "${COLOR_SEC}COMPILANDO JAR NORMALIZA CARGA ${NO_COLOR}\n"
+echo -e "\n${COLOR_SEC}COMPILANDO JAR NORMALIZA CARGA ${NO_COLOR}\n"
 
 DIR_GIT="$DIR_PROJETOS/fiscalize"
 DIR_PROJECT_NORMALIZA="$DIR_GIT/normalizacotas"
@@ -56,7 +55,6 @@ DIR_PROJECT_NORMALIZA="$DIR_GIT/normalizacotas"
 DIR_JAR_NORMALIZA="$DIR_PROJECT_NORMALIZA/target/normalizacotas-1.0.jar"
 DIR_JAR_NORMALIZA_FINAL="$DIR_BASE/normalizacotas.jar"
 
-echo -e "${COLOR}Entrando no diretorio GIT: $DIR_PROJECT_NORMALIZA ${NO_COLOR}"
 cd $DIR_PROJECT_NORMALIZA
 
 mvn package

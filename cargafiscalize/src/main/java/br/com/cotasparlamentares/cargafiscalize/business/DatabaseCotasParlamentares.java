@@ -7,6 +7,7 @@ import java.util.logging.Logger;
 import org.hibernate.HibernateException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.com.cotasparlamentares.cargafiscalize.dao.DespesaDao;
@@ -39,10 +40,18 @@ public class DatabaseCotasParlamentares {
 		int validos=0;
 		for(Despesa despesa:despesas) {
 			try {
-				despesaDao.save(despesa);
+				List<Despesa> despesasExistentes = despesaDao.findByExample(despesa);
+				if(despesasExistentes.size()==0) {
+					despesaDao.save(despesa);	
+				} else {
+					logger.log(Level.WARNING, "Despesa " + iteracao + " já existe, ignorada!");
+				}
 				validos++;
 			} catch(HibernateException e) {
 				logger.log(Level.WARNING, "Erro ao salvar DESPESA: " + iteracao + " Erro: " + e.getLocalizedMessage());
+				if(e.getCause()!=null) {
+					logger.log(Level.WARNING, "CAUSA: " + iteracao + " Erro: " + e.getCause().getLocalizedMessage());
+				}
 			}
 			
 			iteracao++;

@@ -35,8 +35,8 @@ CREATE TABLE IF NOT EXISTS `fiscalize`.`Despesa` (
   `numEspecificacaoSubCota` VARCHAR(500) NULL DEFAULT NULL,
   `numLote` VARCHAR(20) NULL DEFAULT NULL,
   `numMes` VARCHAR(10) NULL DEFAULT NULL,
-  `numParcela` VARCHAR(500) NULL DEFAULT NULL,
-  `numRessarcimento` VARCHAR(500) NULL DEFAULT NULL,
+  `numParcela` VARCHAR(10) NULL DEFAULT NULL,
+  `numRessarcimento` VARCHAR(10) NULL DEFAULT NULL,
   `numSubCota` VARCHAR(500) NULL DEFAULT NULL,
   `sgPartido` VARCHAR(10) NULL DEFAULT NULL,
   `sgUF` VARCHAR(10) NULL DEFAULT NULL,
@@ -45,8 +45,8 @@ CREATE TABLE IF NOT EXISTS `fiscalize`.`Despesa` (
   `txtDescricao` VARCHAR(500) NULL DEFAULT NULL,
   `txtDescricaoEspecificacao` VARCHAR(500) NULL DEFAULT NULL,
   `txtFornecedor` VARCHAR(500) NULL DEFAULT NULL,
-  `txtNumero` VARCHAR(500) NULL DEFAULT NULL,
-  `txtPassageiro` VARCHAR(500) NULL DEFAULT NULL,
+  `txtNumero` VARCHAR(50) NULL DEFAULT NULL,
+  `txtPassageiro` VARCHAR(200) NULL DEFAULT NULL,
   `txtTrecho` VARCHAR(500) NULL DEFAULT NULL,
   `vlrDocumento` VARCHAR(20) NULL DEFAULT NULL,
   `vlrGlosa` VARCHAR(20) NULL DEFAULT NULL,
@@ -54,7 +54,7 @@ CREATE TABLE IF NOT EXISTS `fiscalize`.`Despesa` (
   PRIMARY KEY (`despesaId`))
 ENGINE = InnoDB;
 
-CREATE UNIQUE INDEX `UNIQUE_CARGA` ON `fiscalize`.`Despesa` (`ideCadastro` ASC, `indTipoDocumento` ASC, `nuCarteiraParlamentar` ASC, `nuLegislatura` ASC, `numAno` ASC, `numMes` ASC, `numLote` ASC, `sgPartido` ASC, `sgUF` ASC, `txtCNPJCPF` ASC, `vlrDocumento` ASC, `vlrGlosa` ASC, `vlrLiquido` ASC, `codLegislatura` ASC, `datEmissao` ASC);
+CREATE UNIQUE INDEX `UNIQUE_CARGA` ON `fiscalize`.`Despesa` (`ideCadastro` ASC, `nuCarteiraParlamentar` ASC, `nuLegislatura` ASC, `numAno` ASC, `numMes` ASC, `numLote` ASC, `txtCNPJCPF` ASC, `codLegislatura` ASC, `datEmissao` ASC, `numParcela` ASC, `txtNumero` ASC, `txtPassageiro` ASC, `vlrLiquido` ASC, `numRessarcimento` ASC, `vlrDocumento` ASC);
 
 
 -- -----------------------------------------------------

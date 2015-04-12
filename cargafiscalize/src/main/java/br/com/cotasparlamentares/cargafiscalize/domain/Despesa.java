@@ -9,6 +9,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.hibernate.annotations.NamedQueries;
@@ -24,6 +26,9 @@ import br.com.cotasparlamentares.cargafiscalize.exception.DespesaReflectionExcep
 })
 
 @Entity
+@Table(uniqueConstraints=@UniqueConstraint(columnNames={"ideCadastro", "nuCarteiraParlamentar", "nuLegislatura", 
+		"numAno", "numMes", "numLote", "txtCNPJCPF", "codLegislatura", "datEmissao", "numParcela", 
+		"txtNumero", "txtPassageiro", "vlrLiquido", "numRessarcimento", "vlrDocumento"}))
 public class Despesa {
 
 	private static final String TABELA_DESPESA = "Despesa";
