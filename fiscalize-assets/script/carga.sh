@@ -53,9 +53,15 @@ unzip -o $ZIP_NAME
 
 # BKP banco atual 
 DUMP_NAME=bkp.sql.`date +"%Y%m%d_%H%M%S"`
+DUMP_NAME_ZIP="$DUMP_NAME.zip"
 DUMP_PATH="$DIR_BKP/$DUMP_NAME"
-echo -e "${COLOR}Criando BKP DATABASE ATUAL: $DUMP_PATH ${NO_COLOR}"
+DUMP_PATH_ZIP="$DIR_BKP/$DUMP_NAME_ZIP"
+
+echo -e "${COLOR}Criando e Zipando BKP DATABASE ATUAL: $DUMP_PATH_ZIP ${NO_COLOR}"
 mysqldump --opt --protocol=${DB_PROTOCOL} --user=${DB_USER} --password=${DB_PASSWORD} ${DB_DATABASE} > $DUMP_PATH
+cd $DIR_BKP
+zip $DUMP_NAME_ZIP $DUMP_NAME
+rm $DUMP_NAME
 
 # le arquivo xml e popula banco de dados (carga)
 java -jar $JAR_CARGA DB $XML_NAME $DIR_LOGS

@@ -44,16 +44,16 @@ public class ParseXmlCotasParlamentares {
 	private long inicio;
 	
 	public ParseXmlCotasParlamentares(){
+		inicio = System.currentTimeMillis();
+		logger = Utilidade.getLogger();
+		
+		String strCaminhoXml = SingletonParametros.getInstance().getCaminhoXml();
 		try {
-			inicio = System.currentTimeMillis();
-			logger = Utilidade.getLogger();
-			
 			// Abre arquivo XML
-			String strCaminhoXml = SingletonParametros.getInstance().getCaminhoXml();
 			File arquivoXml = new File(strCaminhoXml);
 			inputStreamReader = new InputStreamReader(new FileInputStream(arquivoXml), XML_ENCODING);
 		} catch(IOException e) {
-			throw new RuntimeException("Impossível ler o arquivo! Verifique o caminho e tamanho do arquivo e assegure-se de ter descompactado corretamente!");
+			throw new RuntimeException("Impossível ler o arquivo! Verifique o caminho e tamanho do arquivo e assegure-se de ter descompactado corretamente! " + strCaminhoXml);
 		}
 	}
 	
