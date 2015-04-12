@@ -33,7 +33,7 @@ public class DatabaseCotasParlamentares {
 	
 	@Transactional
 	public void carregarBancoDados(List<Despesa> despesas) throws CargaDespesaException, DespesaReflectionException {
-		logger.log(Level.INFO, "Iniciando salvamento dos registros no banco de dados...");
+		logger.log(Level.INFO, "Iniciando leitura e salvamento dos registros no banco de dados...");
 		
 		long ultimoLog = System.currentTimeMillis();
 		int iteracao=0;
@@ -56,7 +56,7 @@ public class DatabaseCotasParlamentares {
 			
 			iteracao++;
             if(System.currentTimeMillis() - ultimoLog > Utilidade.LOG_INTERVAL) {
-            	logger.log(Level.INFO, "Salvando em banco registro " + iteracao);
+            	logger.log(Level.INFO, "Lendo (e tentando salvar) registro " + iteracao);
 				ultimoLog = System.currentTimeMillis();
 			}
             

@@ -17,7 +17,7 @@ DIR="/root"
 DIR_FISCALIZE="$DIR/fiscalize"
 DIR_BKP="$DIR_FISCALIZE/bkp"
 DIR_BUILD="$DIR_FISCALIZE/build"
-DIR_LOGS="$DIR_BUILD/logs/"
+DIR_LOGS="$DIR_FISCALIZE/logs"
 DIR_IMAGENS="$DIR_BUILD/imagens/"
 DIR_DOWNLOAD="$DIR_BUILD/downloads"
 
@@ -71,14 +71,14 @@ java -jar $JAR_CARGA DB $XML_PATH $DIR_LOGS
 # le banco desnormalizado e normaliza (carga)
 java -jar $JAR_NORMALIZA $DIR_LOGS $DIR_IMAGENS
 
-DIR_IMAGENS_WEB="/var/www/html/fiscalize"
+DIR_IMAGENS_WEB="/var/www/html/fiscalize/"
 if [ ! -d "$DIR_IMAGENS_WEB" ]; then
 	echo -e "${COLOR}Criando diretorio IMAGENS WEB: $DIR_IMAGENS_WEB ${NO_COLOR}"
 	mkdir $DIR_IMAGENS_WEB
 fi
 
 echo -e "${COLOR}Copiando imagens de partidos e deputados em: $DIR_IMAGENS_WEB ${NO_COLOR}"
-cp -R "$DIR_IMAGENS/*" $DIR_IMAGENS_WEB
+cp -R "$DIR_IMAGENS*" $DIR_IMAGENS_WEB
 
 echo -e "\n${COLOR_SEC}CARGA FINALIZADA ${NO_COLOR}\n"
 
