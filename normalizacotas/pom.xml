@@ -1,6 +1,6 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>br.com.cotasparlamentares.normalizacotas</groupId>
+  <groupId>br.net.ops.fiscalize</groupId>
   <artifactId>normalizacotas</artifactId>
   <version>1.0</version>
   <name>normalizacotas</name>
@@ -148,7 +148,7 @@
 	                  <resource>META-INF/spring.schemas</resource>
 	                </transformer>
 	                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-	                  <mainClass>br.com.cotasparlamentares.normalizacotas.execute.InicializadorSpring</mainClass>
+	                  <mainClass>br.net.ops.fiscalize.execute.InicializadorSpring</mainClass>
 	                </transformer>
 	              </transformers>
 	            </configuration>

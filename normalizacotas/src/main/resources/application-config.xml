@@ -13,7 +13,7 @@
         http://www.springframework.org/schema/aop  http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
 
     <context:annotation-config />
-    <context:component-scan base-package="br.com.cotasparlamentares.normalizacotas" />
+    <context:component-scan base-package="br.net.ops.fiscalize" />
 
     <!-- DATA SOURCE -->
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource"
@@ -26,7 +26,7 @@
     <!-- HIBERNATE -->
     <bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
         <property name="dataSource" ref="dataSource" />
-        <property name="packagesToScan" value="br.com.cotasparlamentares.normalizacotas.domain" />
+        <property name="packagesToScan" value="br.net.ops.fiscalize.domain" />
                 <property name="hibernateProperties">
             <props>
                 <prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
