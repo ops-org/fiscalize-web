@@ -17,7 +17,6 @@
               <goal>shade</goal>
             </goals>
             <configuration>
-              <minimizeJar>true</minimizeJar>
               <transformers>
                 <transformer>
                   <resource>META-INF/spring.handlers</resource>
