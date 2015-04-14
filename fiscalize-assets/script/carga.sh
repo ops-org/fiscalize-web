@@ -77,8 +77,10 @@ if [ ! -d "$DIR_IMAGENS_WEB" ]; then
 	mkdir $DIR_IMAGENS_WEB
 fi
 
+TODAS_IMAGENS="$DIR_IMAGENS*"
+
 echo -e "${COLOR}Copiando imagens de partidos e deputados em: $DIR_IMAGENS_WEB ${NO_COLOR}"
-cp -R "$DIR_IMAGENS*" $DIR_IMAGENS_WEB
+cp -R $TODAS_IMAGENS $DIR_IMAGENS_WEB
 
 echo -e "\n${COLOR_SEC}CARGA FINALIZADA ${NO_COLOR}\n"
 

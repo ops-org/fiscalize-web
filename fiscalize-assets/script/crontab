@@ -1,0 +1,2 @@
+# EXECUTA CARGA DAS COTAS DIARIAMENTE 1:00AM ##################################################################################
+00 01 * * * /root/fiscalize/carga.sh

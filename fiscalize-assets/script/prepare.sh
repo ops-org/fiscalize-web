@@ -7,7 +7,6 @@ NO_COLOR='\033[0m'
 
 echo -e "${COLOR_SEC}VERIFICANDO DIRETORIOS${NO_COLOR}\n"
 
-# cria diretórios
 DIR="/root"
 DIR_FISCALIZE="$DIR/fiscalize"
 DIR_BKP="$DIR_FISCALIZE/bkp"
@@ -15,6 +14,10 @@ DIR_LOGS="$DIR_FISCALIZE/logs"
 DIR_BUILD="$DIR_FISCALIZE/build"
 DIR_IMAGENS="$DIR_BUILD/imagens"
 
+# apaga bkp mais antigos que 10 dias
+find $DIR_BKP -maxdepth 2 -mtime +10 -type f -name "*.zip" -exec rm -f {} \;
+
+# cria diretórios
 if [ ! -d "$DIR_FISCALIZE" ]; then
 	echo -e "${COLOR}Criando diretorio BASE: $DIR_FISCALIZE ${NO_COLOR}"
 	mkdir $DIR_FISCALIZE
