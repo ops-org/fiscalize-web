@@ -4,17 +4,21 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.persistence.UniqueConstraint;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.hibernate.annotations.NamedQueries;
 import org.hibernate.annotations.NamedQuery;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import br.net.ops.fiscalize.exception.DespesaReflectionException;
 
@@ -64,6 +68,9 @@ public class Despesa {
 	public String numLote;
 	public String numRessarcimento;
 	
+	@Temporal(TemporalType.TIMESTAMP)
+	public Date dataInclusao;
+	
 	public String retornarCreateSQL() throws DespesaReflectionException {
 		ArrayList<String> listaCampos = retornarCampos();
 		
@@ -73,7 +80,7 @@ public class Despesa {
 		}
 		
 		String campos = sb.toString();
-		if(campos.length()>2) campos = campos.substring(0, campos.length()-2); // retirando �ltima v�rgula e espa�o 
+		if(campos.length()>2) campos = campos.substring(0, campos.length()-2); // retirando  ultima  virgula e espaco 
 		
 		return "CREATE TABLE " + TABELA_DESPESA + " (despesaId INT PRIMARY KEY, " + campos + ");";
 	}
@@ -291,6 +298,12 @@ public class Despesa {
 	}
 	public void setNumRessarcimento(String numRessarcimento) {
 		this.numRessarcimento = numRessarcimento;
+	}
+	public Date getDataInclusao() {
+		return dataInclusao;
+	}
+	public void setDataInclusao(Date dataInclusao) {
+		this.dataInclusao = dataInclusao;
 	}
 	
 }

@@ -1,5 +1,6 @@
 package br.net.ops.fiscalize.business;
 
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -42,6 +43,7 @@ public class DatabaseCotasParlamentares {
 			try {
 				List<Despesa> despesasExistentes = despesaDao.findByExample(despesa);
 				if(despesasExistentes.size()==0) {
+					despesa.setDataInclusao(new Date(System.currentTimeMillis()));
 					despesaDao.save(despesa);	
 				} else {
 					logger.log(Level.WARNING, "Despesa " + iteracao + " já existe, ignorada!");

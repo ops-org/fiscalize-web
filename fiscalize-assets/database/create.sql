@@ -51,6 +51,7 @@ CREATE TABLE IF NOT EXISTS `fiscalize`.`Despesa` (
   `vlrDocumento` VARCHAR(20) NULL DEFAULT NULL,
   `vlrGlosa` VARCHAR(20) NULL DEFAULT NULL,
   `vlrLiquido` VARCHAR(20) NULL DEFAULT NULL,
+  `dataInclusao` DATETIME NOT NULL,
   PRIMARY KEY (`despesaId`))
 ENGINE = InnoDB;
 
@@ -134,6 +135,7 @@ CREATE TABLE IF NOT EXISTS `fiscalize`.`NotaFiscal` (
   `valor` DECIMAL(10,2) NOT NULL,
   `valorGlosa` DECIMAL(10,2) NULL DEFAULT NULL,
   `valorLiquido` DECIMAL(10,2) NULL DEFAULT NULL,
+  `dataInclusao` DATETIME NOT NULL,
   PRIMARY KEY (`notaFiscalId`),
   CONSTRAINT `fk_NotaFiscal_Cota1`
     FOREIGN KEY (`cotaId`)
@@ -191,7 +193,7 @@ CREATE TABLE IF NOT EXISTS `fiscalize`.`Suspeita` (
   `suspeitaObjeto` TINYINT(1) NOT NULL DEFAULT false COMMENT 'Objeto da compra/contratação sob suspeita?',
   `suspeitaFornecedor` TINYINT(1) NOT NULL DEFAULT false COMMENT 'Fornecedor sob suspeita?',
   `comentarios` VARCHAR(2000) NULL,
-  `dataIncluida` DATETIME NOT NULL,
+  `dataInclusao` DATETIME NOT NULL,
   PRIMARY KEY (`suspeitaId`),
   CONSTRAINT `fk_Suspeita_notafiscal1`
     FOREIGN KEY (`notaFiscalId`)

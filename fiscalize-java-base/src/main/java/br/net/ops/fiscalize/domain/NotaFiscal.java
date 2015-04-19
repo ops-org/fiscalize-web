@@ -61,6 +61,9 @@ public class NotaFiscal {
 	@Column(length = 10, precision = 2)
 	private BigDecimal valorLiquido;
 	
+	@Temporal(TemporalType.TIMESTAMP)
+	public Date dataInclusao;
+	
 	@ManyToOne
 	@JoinColumn(name="parlamentarId")
 	private Parlamentar parlamentar;
@@ -308,6 +311,14 @@ public class NotaFiscal {
 
 	public void setDataEmissao(Date dataEmissao) {
 		this.dataEmissao = dataEmissao;
+	}
+
+	public Date getDataInclusao() {
+		return dataInclusao;
+	}
+
+	public void setDataInclusao(Date dataInclusao) {
+		this.dataInclusao = dataInclusao;
 	}
 
 }
