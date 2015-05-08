@@ -1,4 +1,4 @@
-package br.net.ops.fiscalize.utils;
+package br.net.ops.fiscalize.webutil;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -7,6 +7,8 @@ import java.util.logging.ConsoleHandler;
 import java.util.logging.Handler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import br.net.ops.fiscalize.util.CustomFormatter;
 
 public class Utilidade {
 
@@ -17,6 +19,9 @@ public class Utilidade {
 	
 	// FORMATO DATA
 	public static final String FORMATO_DATA = "dd/MM/yyyy HH:mm:ss";
+	
+	// HEADER HTTP
+	public static final String HTTP_HEADER_JSON = "application/json";
 	
 	public static Logger logger = null;
 	

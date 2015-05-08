@@ -9,8 +9,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import br.net.ops.fiscalize.dao.NotaFiscalDao;
 import br.net.ops.fiscalize.domain.NotaFiscal;
-import br.net.ops.fiscalize.util.Utilidade;
-import br.net.ops.fiscalize.util.base.ServiceBase;
+import br.net.ops.fiscalize.webutil.Utilidade;
+import br.net.ops.fiscalize.webutil.base.ServiceBase;
 
 @Service
 public class RestService extends ServiceBase {

@@ -1,4 +1,4 @@
-package br.net.ops.fiscalize.utils;
+package br.net.ops.fiscalize.webutil;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
