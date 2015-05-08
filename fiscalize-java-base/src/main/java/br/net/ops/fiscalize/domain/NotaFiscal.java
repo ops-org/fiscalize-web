@@ -26,6 +26,8 @@ import br.net.ops.fiscalize.exception.ValorGlosaException;
 import br.net.ops.fiscalize.exception.ValorLiquidoException;
 import br.net.ops.fiscalize.util.Utilidade;
 
+import com.google.gson.annotations.Expose;
+
 @Entity
 public class NotaFiscal {
 
@@ -35,46 +37,46 @@ public class NotaFiscal {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private Integer notaFiscalId;
+	@Expose private Integer notaFiscalId;
 	
-	private String descricao;
-	private String descricaoSubCota;
-	private String fornecedor;
-	private String cpfCnpj;
-	private Integer ano;
-	private Integer mes;
+	@Expose private String descricao;
+	@Expose private String descricaoSubCota;
+	@Expose private String fornecedor;
+	@Expose private String cpfCnpj;
+	@Expose private Integer ano;
+	@Expose private Integer mes;
 	
-	private String numeroDocumento;
-	private Integer parcela;
-	private Integer tipoDocumentoFiscal;
+	@Expose private String numeroDocumento;
+	@Expose private Integer parcela;
+	@Expose private Integer tipoDocumentoFiscal;
 	
-	private String nomePassageiro;
-	private String trechoViagem;
-	
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date dataEmissao;
-	
-	@Column(length = 10, precision = 2)
-	private BigDecimal valor;
-	@Column(length = 10, precision = 2)
-	private BigDecimal valorGlosa;
-	@Column(length = 10, precision = 2)
-	private BigDecimal valorLiquido;
+	@Expose private String nomePassageiro;
+	@Expose private String trechoViagem;
 	
 	@Temporal(TemporalType.TIMESTAMP)
-	public Date dataInclusao;
+	@Expose private Date dataEmissao;
+	
+	@Column(length = 10, precision = 2)
+	@Expose private BigDecimal valor;
+	@Column(length = 10, precision = 2)
+	@Expose private BigDecimal valorGlosa;
+	@Column(length = 10, precision = 2)
+	@Expose private BigDecimal valorLiquido;
+	
+	@Temporal(TemporalType.TIMESTAMP)
+	@Expose public Date dataInclusao;
 	
 	@ManyToOne
 	@JoinColumn(name="parlamentarId")
-	private Parlamentar parlamentar;
+	@Expose private Parlamentar parlamentar;
 	
 	@ManyToOne
 	@JoinColumn(name="cotaId")
-	private Cota cota;
+	@Expose private Cota cota;
 	
 	@ManyToOne
 	@JoinColumn(name="ufId")
-	private Uf uf;
+	@Expose private Uf uf;
 
 	public static Date retornarDataEmissao(String data) {
 		Date retorno;

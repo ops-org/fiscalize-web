@@ -11,21 +11,23 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import com.google.gson.annotations.Expose;
+
 @Entity
 public class Parlamentar {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private Integer parlamentarId;
-	private String nome;
-	private String nomeCivil;
-	private String email;
-	private String profissao;
-	private Integer ideCadastro;
+	@Expose private Integer parlamentarId;
+	@Expose private String nome;
+	@Expose private String nomeCivil;
+	@Expose private String email;
+	@Expose private String profissao;
+	@Expose private Integer ideCadastro;
 	
 	@ManyToOne
 	@JoinColumn(name="partidoId")
-	private Partido partido;
+	@Expose private Partido partido;
 
 	@OneToMany(mappedBy="parlamentar", fetch = FetchType.LAZY)
 	private List<NotaFiscal> notasFiscais = null;
