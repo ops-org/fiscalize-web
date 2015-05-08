@@ -7,8 +7,34 @@
 //
 
 #import "ViewController.h"
+#import <SDWebImage/UIImageView+WebCache.h>
 
 @interface ViewController ()
+
+
+@property (weak, nonatomic) IBOutlet UILabel *numeroNotaLabel;
+
+@property (weak, nonatomic) IBOutlet UIImageView *fotoPartidoImageView;
+@property (weak, nonatomic) IBOutlet UILabel *siglaPartidoLabel;
+@property (weak, nonatomic) IBOutlet UILabel *nomePartidoLabel;
+
+@property (weak, nonatomic) IBOutlet UIImageView *fotoParlamentarImageView;
+@property (weak, nonatomic) IBOutlet UILabel *nomeParlamentarLabel;
+@property (weak, nonatomic) IBOutlet UILabel *emailParlamentarLabel;
+
+
+@property (weak, nonatomic) IBOutlet UILabel *unidadeFederativaLabel;
+@property (weak, nonatomic) IBOutlet UILabel *cpfCnpjLabel;
+@property (weak, nonatomic) IBOutlet UILabel *cotaLabel;
+@property (weak, nonatomic) IBOutlet UILabel *fornecedorLabel;
+@property (weak, nonatomic) IBOutlet UILabel *dataRessarcimentoLabel;
+@property (weak, nonatomic) IBOutlet UILabel *dataEmissaoLabel;
+@property (weak, nonatomic) IBOutlet UILabel *valorLabel;
+@property (weak, nonatomic) IBOutlet UILabel *valorGlosaLabel;
+@property (weak, nonatomic) IBOutlet UILabel *valorLiquidoLabel;
+@property (weak, nonatomic) IBOutlet UITextView *descricaoLabel;
+
+
 
 @end
 
@@ -17,7 +43,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    
     NSURLRequest *request = [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:@"http://104.131.229.175/ops"]];
     
     __block NSDictionary *json;
@@ -25,34 +50,55 @@
                                        queue:[NSOperationQueue mainQueue]
                            completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError)
     {
-                        json = [NSJSONSerialization JSONObjectWithData:data
-                                                                      options:0
-                                                                        error:nil];
+        // carrega o son
+        json = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+        
         // pega os dados do json
-        NSNumber *notaId = json[@"notaFiscalId"];
-        NSDictionary *parlamentar = json[@"parlamentar"];
-        NSDictionary *partido = json[@"partido"];
-        NSString *cota = json[@"cota"];
-        NSString *unidadeFederativa = json[@"uf"];
-        NSString *dataEmissão = json[@"dataEmissao"];
-        NSString *descricao = json[@"Viagem para Buenos Aires"];
-        NSString *fornecedor = json[@"fornecedor"];
-        NSString *cpfCnpj = json[@"cpfcnpj"];
-        NSString *ano = json[@"ano"];
-        NSString *mes = json[@"mes"];
-        NSString *numeroDocumento = json[@"numeroDocumento"];
-        NSString *valor = json[@"valor"];
-        NSString *valorGlosa = json[@"valorGlosa"];
-        NSString *valorLiquido = json[@"valorLiquido"];
+        [self parseJson:json];
         
         
     }];
     
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+-(void)parseJson:(NSDictionary*)json {
+    
+    NSNumber *notaId = json[@"notaFiscalId"];
+    NSDictionary *parlamentar = json[@"parlamentar"];
+    NSString *nomeParlamentar = parlamentar[@"nome"];
+    NSString *emailParlamentar = parlamentar[@"email"];
+    NSString *urlFotoParlamentar = parlamentar[@"urlFoto"];
+    NSDictionary *partido = json[@"partido"];
+    NSString *nomePartido = partido[@"nome"];
+    NSString *siglaPartido = partido[@"sigla"];
+    NSString *urlFotoPartido = partido[@"urlFoto"];
+    NSString *cota = json[@"cota"];
+    NSString *unidadeFederativa = json[@"uf"];
+    NSString *dataEmissão = json[@"dataEmissao"];
+    NSString *descricao = json[@"Viagem para Buenos Aires"];
+    NSString *fornecedor = json[@"fornecedor"];
+    NSString *cpfCnpj = json[@"cpfcnpj"];
+    NSString *anoRessarcimento = json[@"ano"];
+    NSString *mesRessarcimento = json[@"mes"];
+    NSString *numeroNota = json[@"numeroDocumento"];
+    NSString *valor = json[@"valor"];
+    NSString *valorGlosa = json[@"valorGlosa"];
+    NSString *valorLiquido = json[@"valorLiquido"];
+    
+    // atualiza a UI
+    
+    // nota fiscal
+    _numeroNotaLabel.text = numeroNota;
+    
+    // partido
+    [_fotoPartidoImageView sd];
+    _siglaPartidoLabel.text = siglaPartido;
+    _nomePartidoLabel.text = nomePartido;
+    
+    // parlamentar
+    _nomeParlamentarLabel.text = nomeParlamentar;
+    _emailParlamentarLabel.text = emailParlamentar;
+    
 }
 
 @end
