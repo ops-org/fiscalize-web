@@ -100,12 +100,17 @@
     _descricaoTextView.text = descricao;
     
     // partido
-    [_fotoPartidoImageView sd_setImageWithURL:[NSURL URLWithString:urlFotoPartido] placeholderImage:nil];
+    
+    // TODO: voltar codigo original
+    [_fotoPartidoImageView sd_setImageWithURL:[NSURL URLWithString:@"http://104.131.229.175/fiscalize/partido/PTN.gif"] placeholderImage:nil];
+    //[_fotoPartidoImageView sd_setImageWithURL:[NSURL URLWithString:urlFotoPartido] placeholderImage:nil];
     _siglaPartidoLabel.text = siglaPartido;
     _nomePartidoLabel.text = nomePartido;
     
     // parlamentar
-    [_fotoPartidoImageView sd_setImageWithURL:[NSURL URLWithString:urlFotoParlamentar] placeholderImage:nil];
+    //TODO: voltar codigo original
+    [_fotoParlamentarImageView sd_setImageWithURL:[NSURL URLWithString:@"http://104.131.229.175/fiscalize/parlamentar/101309.jpg"] placeholderImage:nil];
+    //[_fotoPartidoImageView sd_setImageWithURL:[NSURL URLWithString:urlFotoParlamentar] placeholderImage:nil];
     _nomeParlamentarLabel.text = nomeParlamentar;
     _emailParlamentarLabel.text = emailParlamentar;
     _unidadeFederativaLabel.text = unidadeFederativa;
