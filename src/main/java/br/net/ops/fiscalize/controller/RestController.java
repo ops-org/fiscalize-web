@@ -14,9 +14,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import br.net.ops.fiscalize.domain.NotaFiscal;
 import br.net.ops.fiscalize.service.RestService;
-import br.net.ops.fiscalize.util.BundleUtils;
-import br.net.ops.fiscalize.util.Utilidade;
-import br.net.ops.fiscalize.util.base.ControllerBase;
+import br.net.ops.fiscalize.webutil.BundleUtils;
+import br.net.ops.fiscalize.webutil.Utilidade;
+import br.net.ops.fiscalize.webutil.base.ControllerBase;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

@@ -1,9 +1,9 @@
-package br.net.ops.fiscalize.utils.base;
+package br.net.ops.fiscalize.webutil.base;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import br.net.ops.fiscalize.utils.Utilidade;
+import br.net.ops.fiscalize.webutil.Utilidade;
 
 public abstract class ServiceBase {
 	
