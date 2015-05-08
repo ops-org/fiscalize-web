@@ -65,7 +65,7 @@ DIR_WEB_WAR="$DIR_WEB_PROJECT/target/fiscalize-web-1.0.war"
 DIR_WEB_WAR_FINAL="$DIR_TOMCAT/fiscalize-web.war"
 
 cd $DIR_WEB_PROJECT
-mvn war:war
+mvn package
 cp $DIR_WEB_WAR $DIR_WEB_WAR_FINAL
 
 echo -e "${COLOR_SEC}CRIACAO DE JAR FINALIZADAS EM\n ${COLOR}Carga: $DIR_CARGA_JAR_FINAL\n Normaliza: $DIR_NORMALIZA_JAR_FINAL\n Web: $DIR_WEB_WAR_FINAL ${NO_COLOR}\n"
