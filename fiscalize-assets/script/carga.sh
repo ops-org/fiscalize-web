@@ -1,5 +1,5 @@
 #!/bin/bash
-# BAIXA ARQUIVO E INICIA A CARGA (SE HOUVER CODIGO FONTE NOVO, EXECUTE build.sh ANTES)
+# BAIXA ARQUIVO E INICIA A CARGA (SE HOUVER CODIGO FONTE NOVO, EXECUTE java_build.sh ANTES)
 COLOR='\033[0;32m'
 COLOR_SEC='\033[0;33m'
 COLOR_TER='\033[0;31m'
@@ -23,6 +23,9 @@ DIR_DOWNLOAD="$DIR_BUILD/downloads"
 
 JAR_CARGA="$DIR_BUILD/fiscalize-java-carga.jar"
 JAR_NORMALIZA="$DIR_BUILD/fiscalize-java-normaliza.jar"
+
+# apaga bkp mais antigos que 10 dias
+find $DIR_BKP -maxdepth 2 -mtime +10 -type f -name "*.zip" -exec rm -f {} \;
 
 if [ ! -f "$JAR_CARGA" ]; then
 	echo -e "${COLOR_TER}Nao existe o JAR de carga: $JAR_CARGA (execute build.sh antes) ${NO_COLOR}"
