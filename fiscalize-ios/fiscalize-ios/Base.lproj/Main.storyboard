@@ -198,7 +198,7 @@
                         <outlet property="cpfCnpjLabel" destination="tvg-T3-bMa" id="011-vr-YDN"/>
                         <outlet property="dataEmissaoLabel" destination="k2o-N2-Hvv" id="Yto-3w-O4t"/>
                         <outlet property="dataRessarcimentoLabel" destination="7BW-hC-kQy" id="6Wq-rX-smz"/>
-                        <outlet property="descricaoLabel" destination="NzO-94-hbn" id="lF3-jf-RdK"/>
+                        <outlet property="descricaoTextView" destination="NzO-94-hbn" id="hpl-g1-cDM"/>
                         <outlet property="emailParlamentarLabel" destination="GVg-xV-2F2" id="42t-kE-9rQ"/>
                         <outlet property="fornecedorLabel" destination="EsB-xp-O0s" id="8i5-3U-Pjb"/>
                         <outlet property="fotoParlamentarImageView" destination="iox-l2-sX5" id="eQk-AY-fHa"/>
