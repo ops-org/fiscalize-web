@@ -10,5 +10,4 @@ import br.net.ops.fiscalize.domain.Partido;
 @Repository
 public class PartidoDao extends HibernateGenericDao<Partido, Integer> {
 
-	
 }

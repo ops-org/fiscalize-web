@@ -4,11 +4,14 @@
  
 <hibernate-configuration>
     <session-factory>
+        <mapping class="br.net.ops.fiscalize.domain.Analise" />
         <mapping class="br.net.ops.fiscalize.domain.Cota" />
         <mapping class="br.net.ops.fiscalize.domain.Despesa" />
         <mapping class="br.net.ops.fiscalize.domain.NotaFiscal" />
         <mapping class="br.net.ops.fiscalize.domain.Parlamentar" />
         <mapping class="br.net.ops.fiscalize.domain.Partido" />
+        <mapping class="br.net.ops.fiscalize.domain.Suspeita" />
         <mapping class="br.net.ops.fiscalize.domain.Uf" />
+        <mapping class="br.net.ops.fiscalize.domain.Usuario" />
     </session-factory>
 </hibernate-configuration>

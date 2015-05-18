@@ -4,16 +4,19 @@ import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -77,6 +80,12 @@ public class NotaFiscal {
 	@ManyToOne
 	@JoinColumn(name="ufId")
 	@Expose private Uf uf;
+	
+	@OneToMany(mappedBy="notaFiscal", fetch = FetchType.LAZY)
+	private List<Suspeita> suspeitas = null;
+	
+	@OneToMany(mappedBy="notaFiscal", fetch = FetchType.LAZY)
+	private List<Analise> analises = null;
 
 	public static Date retornarDataEmissao(String data) {
 		Date retorno;
@@ -321,6 +330,22 @@ public class NotaFiscal {
 
 	public void setDataInclusao(Date dataInclusao) {
 		this.dataInclusao = dataInclusao;
+	}
+
+	public List<Suspeita> getSuspeitas() {
+		return suspeitas;
+	}
+
+	public void setSuspeitas(List<Suspeita> suspeitas) {
+		this.suspeitas = suspeitas;
+	}
+
+	public List<Analise> getAnalises() {
+		return analises;
+	}
+
+	public void setAnalises(List<Analise> analises) {
+		this.analises = analises;
 	}
 
 }
