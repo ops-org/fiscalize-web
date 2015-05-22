@@ -100,9 +100,8 @@
     _descricaoTextView.text = descricao;
     
     // partido
-    
     // TODO: voltar codigo original
-    [_fotoPartidoImageView sd_setImageWithURL:[NSURL URLWithString:@"http://104.131.229.175/fiscalize/partido/PTN.gif"] placeholderImage:nil];
+    [_fotoPartidoImageView sd_setImageWithURL:[NSURL URLWithString:@"http://images.pagina13.org.br/wp-content/uploads/2014/06/logo_pt.gif"] placeholderImage:nil];
     //[_fotoPartidoImageView sd_setImageWithURL:[NSURL URLWithString:urlFotoPartido] placeholderImage:nil];
     _siglaPartidoLabel.text = siglaPartido;
     _nomePartidoLabel.text = nomePartido;
