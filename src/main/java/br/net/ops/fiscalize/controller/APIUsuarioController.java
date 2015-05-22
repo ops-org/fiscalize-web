@@ -25,8 +25,8 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 @Controller
-@RequestMapping(value = "/rest")
-public class RestController extends ControllerBase {
+@RequestMapping(value = "/rest/usuario")
+public class APIUsuarioController extends ControllerBase {
 	
 	@Autowired
 	private RestService restService;
@@ -57,31 +57,6 @@ public class RestController extends ControllerBase {
 		} catch(IOException e) {
 			try {
 				response.sendError(HttpServletResponse.SC_BAD_REQUEST, BundleUtils.obterMensagem(BundleUtils.EXCEPTION_MESSAGES, "erro.rest.login"));
-			} catch (IOException e1) {
-				logger.log(Level.WARNING, "Impossível responder requisição! Admin: verificar!");
-			}
-		}
-		
-    }
-	
-	@ResponseBody
-	@RequestMapping(value="/recuperarNotaFiscal", method=RequestMethod.GET)
-    public void recuperarNotaFiscal(HttpServletResponse response, HttpServletRequest request) {
-		logger.log(Level.INFO, "GET - Nota Fiscal aleatória...");
-
-		response.setContentType(Utilidade.HTTP_HEADER_JSON);
-		
-		NotaFiscal notaFiscal = restService.recuperarNotaFiscal();
-		
-		try {
-			Gson gson = new GsonBuilder()
-				.setDateFormat("dd/MM/yyyy HH:mm:ss")
-				.excludeFieldsWithoutExposeAnnotation().create();
-			
-			response.getWriter().write(gson.toJson(notaFiscal));
-		} catch(IOException e) {
-			try {
-				response.sendError(HttpServletResponse.SC_BAD_REQUEST, BundleUtils.obterMensagem(BundleUtils.EXCEPTION_MESSAGES, "erro.rest.notafiscal"));
 			} catch (IOException e1) {
 				logger.log(Level.WARNING, "Impossível responder requisição! Admin: verificar!");
 			}
