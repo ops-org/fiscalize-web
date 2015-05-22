@@ -48,9 +48,7 @@ public class APIUsuarioController extends ControllerBase {
 		usuario = restService.cadastrarAutorizar(usuario);
 		
 		try {
-			Gson gson = new GsonBuilder()
-				.excludeFieldsWithoutExposeAnnotation().create();
-			
+			Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
 			response.getWriter().write(gson.toJson(usuario));
 		} catch(IOException e) {
 			logger.log(Level.WARNING, "Impossível responder requisição! Admin: verificar!");
