@@ -4,16 +4,19 @@ import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -26,6 +29,8 @@ import br.net.ops.fiscalize.exception.ValorGlosaException;
 import br.net.ops.fiscalize.exception.ValorLiquidoException;
 import br.net.ops.fiscalize.util.Utilidade;
 
+import com.google.gson.annotations.Expose;
+
 @Entity
 public class NotaFiscal {
 
@@ -35,46 +40,52 @@ public class NotaFiscal {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private Integer notaFiscalId;
+	@Expose private Integer notaFiscalId;
 	
-	private String descricao;
-	private String descricaoSubCota;
-	private String fornecedor;
-	private String cpfCnpj;
-	private Integer ano;
-	private Integer mes;
+	@Expose private String descricao;
+	@Expose private String descricaoSubCota;
+	@Expose private String fornecedor;
+	@Expose private String cpfCnpj;
+	@Expose private Integer ano;
+	@Expose private Integer mes;
 	
-	private String numeroDocumento;
-	private Integer parcela;
-	private Integer tipoDocumentoFiscal;
+	@Expose private String numeroDocumento;
+	@Expose private Integer parcela;
+	@Expose private Integer tipoDocumentoFiscal;
 	
-	private String nomePassageiro;
-	private String trechoViagem;
-	
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date dataEmissao;
-	
-	@Column(length = 10, precision = 2)
-	private BigDecimal valor;
-	@Column(length = 10, precision = 2)
-	private BigDecimal valorGlosa;
-	@Column(length = 10, precision = 2)
-	private BigDecimal valorLiquido;
+	@Expose private String nomePassageiro;
+	@Expose private String trechoViagem;
 	
 	@Temporal(TemporalType.TIMESTAMP)
-	public Date dataInclusao;
+	@Expose private Date dataEmissao;
+	
+	@Column(length = 10, precision = 2)
+	@Expose private BigDecimal valor;
+	@Column(length = 10, precision = 2)
+	@Expose private BigDecimal valorGlosa;
+	@Column(length = 10, precision = 2)
+	@Expose private BigDecimal valorLiquido;
+	
+	@Temporal(TemporalType.TIMESTAMP)
+	@Expose public Date dataInclusao;
 	
 	@ManyToOne
 	@JoinColumn(name="parlamentarId")
-	private Parlamentar parlamentar;
+	@Expose private Parlamentar parlamentar;
 	
 	@ManyToOne
 	@JoinColumn(name="cotaId")
-	private Cota cota;
+	@Expose private Cota cota;
 	
 	@ManyToOne
 	@JoinColumn(name="ufId")
-	private Uf uf;
+	@Expose private Uf uf;
+	
+	@OneToMany(mappedBy="notaFiscal", fetch = FetchType.LAZY)
+	private List<Suspeita> suspeitas = null;
+	
+	@OneToMany(mappedBy="notaFiscal", fetch = FetchType.LAZY)
+	private List<Analise> analises = null;
 
 	public static Date retornarDataEmissao(String data) {
 		Date retorno;
@@ -319,6 +330,22 @@ public class NotaFiscal {
 
 	public void setDataInclusao(Date dataInclusao) {
 		this.dataInclusao = dataInclusao;
+	}
+
+	public List<Suspeita> getSuspeitas() {
+		return suspeitas;
+	}
+
+	public void setSuspeitas(List<Suspeita> suspeitas) {
+		this.suspeitas = suspeitas;
+	}
+
+	public List<Analise> getAnalises() {
+		return analises;
+	}
+
+	public void setAnalises(List<Analise> analises) {
+		this.analises = analises;
 	}
 
 }

@@ -9,6 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.google.gson.annotations.Expose;
+
 @Entity
 public class Partido {
 
@@ -16,9 +18,9 @@ public class Partido {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private Integer partidoId;
-	private String sigla;
-	private String nome;
+	@Expose private Integer partidoId;
+	@Expose private String sigla;
+	@Expose private String nome;
 	
 	@OneToMany(mappedBy="partido", fetch = FetchType.LAZY)
 	private List<Parlamentar> parlamentares = null;

@@ -5,6 +5,7 @@ COLOR_SEC='\033[0;33m'
 COLOR_TER='\033[0;31m'
 NO_COLOR='\033[0m'
 
+DIR_TOMCAT="/var/lib/tomcat7/webapps"
 DIR_BUILD="/root/fiscalize/build"
 DIR_PROJETOS="$DIR_BUILD/projetos"
 
@@ -27,7 +28,7 @@ REPOSITORY="https://dfavoratti@bitbucket.org/dfavoratti/fiscalize.git"
 echo -e "${COLOR}Puxando projetos GIT: $REPOSITORY ${NO_COLOR}"
 git clone $REPOSITORY
 
-# compila BASE JAVA
+# compila PROJETO BASE JAVA
 echo -e "\n${COLOR_SEC}COMPILANDO BASE JAVA ${NO_COLOR}\n"
 DIR_PROJECT_BASE="$DIR_GIT/fiscalize-java-base"
 
@@ -56,6 +57,17 @@ cd $DIR_NORMALIZA_PROJECT
 mvn package
 cp $DIR_NORMALIZA_JAR $DIR_NORMALIZA_JAR_FINAL
 
-echo -e "${COLOR_SEC}CRIACAO DE JAR FINALIZADAS EM\n ${COLOR}Carga: $DIR_CARGA_JAR_FINAL\n Normaliza: $DIR_NORMALIZA_JAR_FINAL ${NO_COLOR}\n"
+# compila WAR WEB
+echo -e "\n${COLOR_SEC}COMPILANDO WAR WEB ${NO_COLOR}\n"
+
+DIR_WEB_PROJECT="$DIR_GIT/fiscalize-web"
+DIR_WEB_WAR="$DIR_WEB_PROJECT/target/fiscalize-web-1.0.war"
+DIR_WEB_WAR_FINAL="$DIR_TOMCAT/fiscalize-web.war"
+
+cd $DIR_WEB_PROJECT
+mvn package
+cp $DIR_WEB_WAR $DIR_WEB_WAR_FINAL
+
+echo -e "${COLOR_SEC}CRIACAO DE JAR FINALIZADAS EM\n ${COLOR}Carga: $DIR_CARGA_JAR_FINAL\n Normaliza: $DIR_NORMALIZA_JAR_FINAL\n Web: $DIR_WEB_WAR_FINAL ${NO_COLOR}\n"
 
 exit 1

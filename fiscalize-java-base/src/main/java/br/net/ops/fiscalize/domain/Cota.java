@@ -9,6 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.google.gson.annotations.Expose;
+
 @Entity
 public class Cota {
 
@@ -16,8 +18,8 @@ public class Cota {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private Integer cotaId;
-	private String nome;
+	@Expose private Integer cotaId;
+	@Expose private String nome;
 	
 	@OneToMany(mappedBy="cota", fetch = FetchType.LAZY)
 	private List<NotaFiscal> notasFiscais = null;
