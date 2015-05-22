@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import br.net.ops.fiscalize.domain.NotaFiscal;
 import br.net.ops.fiscalize.domain.Suspeita;
 import br.net.ops.fiscalize.domain.Usuario;
+import br.net.ops.fiscalize.exception.AdicionarSuspeitaException;
 import br.net.ops.fiscalize.pojo.Erro;
 import br.net.ops.fiscalize.pojo.Mensagem;
 import br.net.ops.fiscalize.pojo.Retorno;
@@ -72,23 +73,18 @@ public class APISuspeitaController extends ControllerBase {
 		response.setContentType(Utilidade.HTTP_HEADER_JSON);
 		
 		Retorno retorno;
-		if(restService.adicionarSuspeita(suspeita)) {
+		try {
+			restService.adicionarSuspeita(suspeita);
 			retorno = new Mensagem(BundleUtils.obterMensagem(BundleUtils.GLOBAL_MESSAGES, "success.rest.adicionar.suspeita"));
-		} else {
-			retorno = new Erro(BundleUtils.obterMensagem(BundleUtils.EXCEPTION_MESSAGES, "erro.rest.adicionar.suspeita"));
+		} catch(AdicionarSuspeitaException e) {
+			retorno = new Erro(e.getLocalizedMessage());
 		}
 		
 		try {
-			Gson gson = new GsonBuilder()
-				.excludeFieldsWithoutExposeAnnotation().create();
-			
+			Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
 			response.getWriter().write(gson.toJson(retorno));
 		} catch(IOException e) {
-			try {
-				response.sendError(HttpServletResponse.SC_BAD_REQUEST, BundleUtils.obterMensagem(BundleUtils.EXCEPTION_MESSAGES, "erro.rest.login"));
-			} catch (IOException e1) {
-				logger.log(Level.WARNING, "Impossível responder requisição! Admin: verificar!");
-			}
+			logger.log(Level.WARNING, "Impossível responder requisição! Admin: verificar!");
 		}
 		
     }

@@ -1,0 +1,154 @@
+{
+	"id": "d56ece6b-2eb1-aed8-3da8-9e4a50c2eae8",
+	"name": "Fiscalize",
+	"description": "",
+	"order": [
+		"5f50e8b1-7c46-ca18-8880-de99a14b0d77",
+		"95f85903-3a8c-88a5-e501-d205db26c81b",
+		"8e68ae83-f577-3324-1500-141291835dcf"
+	],
+	"folders": [],
+	"timestamp": 1431114965400,
+	"synced": false,
+	"owner": "46149",
+	"sharedWithTeam": false,
+	"subscribed": false,
+	"remoteLink": "https://www.getpostman.com/collections/e9fe889e5b06cd07d696",
+	"public": false,
+	"write": true,
+	"requests": [
+		{
+			"id": "5f50e8b1-7c46-ca18-8880-de99a14b0d77",
+			"headers": "",
+			"url": "{{servidor}}/rest/usuario/autorizar",
+			"pathVariables": {},
+			"preRequestScript": "",
+			"method": "POST",
+			"collectionId": "d56ece6b-2eb1-aed8-3da8-9e4a50c2eae8",
+			"data": [
+				{
+					"key": "usuarioId",
+					"value": "1",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "tokenId",
+					"value": "c6aeec1b-1e17-4091-bc65-0b355da5a824",
+					"type": "text",
+					"enabled": true
+				}
+			],
+			"dataMode": "params",
+			"name": "Autorizar",
+			"description": "",
+			"descriptionFormat": "html",
+			"time": 1432307097684,
+			"version": 2,
+			"responses": [],
+			"tests": "",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"collectionOwner": 0,
+			"synced": false
+		},
+		{
+			"id": "8e68ae83-f577-3324-1500-141291835dcf",
+			"headers": "",
+			"url": "{{servidor}}/rest/suspeita/adicionar",
+			"preRequestScript": "",
+			"pathVariables": {},
+			"method": "POST",
+			"data": [
+				{
+					"key": "usuarioId",
+					"value": "1",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "notaFiscalId",
+					"value": "1",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "suspeita",
+					"value": "true",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "suspeitaValor",
+					"value": "true",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "suspeitaObjeto",
+					"value": "false",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "suspeitaFornecedor",
+					"value": "false",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "comentarios",
+					"value": "Nota pouco suspeita",
+					"type": "text",
+					"enabled": true
+				}
+			],
+			"dataMode": "urlencoded",
+			"version": 2,
+			"tests": "",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1432310182376,
+			"name": "Adicionar Suspeita",
+			"description": "",
+			"collectionId": "d56ece6b-2eb1-aed8-3da8-9e4a50c2eae8",
+			"responses": [],
+			"synced": false
+		},
+		{
+			"id": "95f85903-3a8c-88a5-e501-d205db26c81b",
+			"headers": "",
+			"url": "{{servidor}}/rest/notafiscal/recuperar",
+			"pathVariables": {},
+			"preRequestScript": "",
+			"method": "GET",
+			"collectionId": "d56ece6b-2eb1-aed8-3da8-9e4a50c2eae8",
+			"data": [
+				{
+					"key": "usuarioId",
+					"value": "1",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "tokenId",
+					"value": "c6aeec1b-1e17-4091-bc65-0b355da5a824",
+					"type": "text",
+					"enabled": true
+				}
+			],
+			"dataMode": "params",
+			"name": "Nota Fiscal",
+			"description": "",
+			"descriptionFormat": "html",
+			"time": 1432307113368,
+			"version": 2,
+			"responses": [],
+			"tests": "",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"collectionOwner": 0,
+			"synced": false
+		}
+	]
+}

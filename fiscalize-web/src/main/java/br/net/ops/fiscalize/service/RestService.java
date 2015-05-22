@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,6 +16,7 @@ import br.net.ops.fiscalize.dao.UsuarioDao;
 import br.net.ops.fiscalize.domain.NotaFiscal;
 import br.net.ops.fiscalize.domain.Suspeita;
 import br.net.ops.fiscalize.domain.Usuario;
+import br.net.ops.fiscalize.exception.AdicionarSuspeitaException;
 import br.net.ops.fiscalize.webutil.Utilidade;
 import br.net.ops.fiscalize.webutil.base.ServiceBase;
 
@@ -53,16 +55,11 @@ public class RestService extends ServiceBase {
 	
 	@Transactional
 	public Usuario cadastrarAutorizar(Usuario usuario) {
-		boolean autorizado;
-		
-		autorizado = isAutorizado(usuario.getTokenId());
-		
-		if(autorizado) {
+		if(isAutorizado(usuario.getTokenId())) {
 			return usuario; // Está cadastrado e autorizado
 		} else {
 			return usuarioDao.criarAutorizar(); // criar e autorizar
 		}		
-		
 	}
 	
 	@Transactional
@@ -71,14 +68,17 @@ public class RestService extends ServiceBase {
 		return notaFiscalDao.pegarRandomica();
 	}
 	
-	@Transactional
-	public boolean adicionarSuspeita(Suspeita suspeita) {
+	@Transactional(rollbackFor=AdicionarSuspeitaException.class)
+	public void adicionarSuspeita(Suspeita suspeita) throws AdicionarSuspeitaException {
 		logger.log(Level.CONFIG, "Adicionando suspeita...");
 		
 		suspeita.setDataInclusao(new Date(System.currentTimeMillis()));
-		Integer id = suspeitaDao.save(suspeita);
+		try {
+			suspeitaDao.save(suspeita);
+		} catch(ConstraintViolationException e) {
+			throw new AdicionarSuspeitaException(e);
+		}
 		
-		return id>0; // se tem Id, foi sucesso
 	}
 	
 }
