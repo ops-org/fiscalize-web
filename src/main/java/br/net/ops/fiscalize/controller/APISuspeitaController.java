@@ -37,12 +37,12 @@ public class APISuspeitaController extends ControllerBase {
 	private RestService restService;
 	
 	@ModelAttribute
-	public Suspeita montarSuspeita(@RequestParam(required=false) Integer usuarioId, 
-							  @RequestParam(required=false) Integer notaFiscalId,
-							  @RequestParam(required=false) Boolean suspeita,
-							  @RequestParam(required=false) Boolean suspeitaValor,
-							  @RequestParam(required=false) Boolean suspeitaObjeto,
-							  @RequestParam(required=false) Boolean suspeitaFornecedor,
+	public Suspeita montarSuspeita(@RequestParam(required=true) Integer usuarioId, 
+							  @RequestParam(required=true) Integer notaFiscalId,
+							  @RequestParam(required=true) Boolean suspeita,
+							  @RequestParam(required=true) Boolean suspeitaValor,
+							  @RequestParam(required=true) Boolean suspeitaObjeto,
+							  @RequestParam(required=true) Boolean suspeitaFornecedor,
 							  @RequestParam(required=false) String comentarios) {
 		
 		
