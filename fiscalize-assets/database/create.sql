@@ -189,7 +189,7 @@ CREATE TABLE IF NOT EXISTS `fiscalize`.`Suspeita` (
   `suspeita` TINYINT(1) NOT NULL DEFAULT false,
   `suspeitaValor` TINYINT(1) NOT NULL DEFAULT false COMMENT 'Valor sob suspeita?',
   `suspeitaObjeto` TINYINT(1) NOT NULL DEFAULT false COMMENT 'Objeto da compra/contratação sob suspeita?',
-  `suspeitaFornecedor` TINYINT(1) NOT NULL DEFAULT false COMMENT 'Fornecedor sob suspeita?',
+  `suspeitaBeneficiario` TINYINT(1) NOT NULL DEFAULT false COMMENT 'Fornecedor sob suspeita?',
   `comentarios` VARCHAR(2000) NULL,
   `dataInclusao` DATETIME NOT NULL,
   PRIMARY KEY (`suspeitaId`),
