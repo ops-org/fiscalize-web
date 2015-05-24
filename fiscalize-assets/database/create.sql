@@ -44,7 +44,7 @@ CREATE TABLE IF NOT EXISTS `fiscalize`.`Despesa` (
   `txtCNPJCPF` VARCHAR(20) NULL DEFAULT NULL,
   `txtDescricao` VARCHAR(500) NULL DEFAULT NULL,
   `txtDescricaoEspecificacao` VARCHAR(500) NULL DEFAULT NULL,
-  `txtFornecedor` VARCHAR(500) NULL DEFAULT NULL,
+  `txtBeneficiario` VARCHAR(500) NULL DEFAULT NULL,
   `txtNumero` VARCHAR(50) NULL DEFAULT NULL,
   `txtPassageiro` VARCHAR(200) NULL DEFAULT NULL,
   `txtTrecho` VARCHAR(500) NULL DEFAULT NULL,
@@ -54,8 +54,6 @@ CREATE TABLE IF NOT EXISTS `fiscalize`.`Despesa` (
   `dataInclusao` DATETIME NOT NULL,
   PRIMARY KEY (`despesaId`))
 ENGINE = InnoDB;
-
-CREATE UNIQUE INDEX `UNIQUE_CARGA` ON `fiscalize`.`Despesa` (`ideCadastro` ASC, `nuCarteiraParlamentar` ASC, `nuLegislatura` ASC, `numAno` ASC, `numMes` ASC, `numLote` ASC, `txtCNPJCPF` ASC, `codLegislatura` ASC, `datEmissao` ASC, `numParcela` ASC, `txtNumero` ASC, `txtPassageiro` ASC, `vlrLiquido` ASC, `numRessarcimento` ASC, `vlrDocumento` ASC);
 
 
 -- -----------------------------------------------------
@@ -123,7 +121,7 @@ CREATE TABLE IF NOT EXISTS `fiscalize`.`NotaFiscal` (
   `dataEmissao` DATETIME NULL DEFAULT NULL,
   `descricao` VARCHAR(500) NULL DEFAULT NULL,
   `descricaoSubCota` VARCHAR(500) NULL DEFAULT NULL,
-  `fornecedor` VARCHAR(500) NULL DEFAULT NULL,
+  `beneficiario` VARCHAR(500) NULL DEFAULT NULL,
   `cpfCnpj` VARCHAR(45) NULL DEFAULT NULL,
   `ano` INT(11) NOT NULL,
   `mes` INT(11) NOT NULL,
@@ -210,6 +208,8 @@ ENGINE = InnoDB;
 CREATE INDEX `fk_Suspeita_notafiscal1_idx` ON `fiscalize`.`Suspeita` (`notaFiscalId` ASC);
 
 CREATE INDEX `fk_Suspeita_Usuario1_idx` ON `fiscalize`.`Suspeita` (`usuarioId` ASC);
+
+CREATE UNIQUE INDEX `NaoRepetir` ON `fiscalize`.`Suspeita` (`notaFiscalId` ASC, `usuarioId` ASC);
 
 
 -- -----------------------------------------------------

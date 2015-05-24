@@ -52,7 +52,7 @@ public class Despesa {
 	public String txtDescricao;
 	public String numEspecificacaoSubCota;
 	public String txtDescricaoEspecificacao;
-	public String txtFornecedor;
+	public String txtBeneficiario;
 	public String txtCNPJCPF;
 	public String txtNumero;
 	public String indTipoDocumento;
@@ -209,11 +209,11 @@ public class Despesa {
 	public void setTxtDescricaoEspecificacao(String txtDescricaoEspecificacao) {
 		this.txtDescricaoEspecificacao = txtDescricaoEspecificacao;
 	}
-	public String getTxtFornecedor() {
-		return txtFornecedor;
+	public String getTxtBeneficiario() {
+		return txtBeneficiario;
 	}
-	public void setTxtFornecedor(String txtFornecedor) {
-		this.txtFornecedor = txtFornecedor;
+	public void setTxtBeneficiario(String txtFornecedor) {
+		this.txtBeneficiario = txtFornecedor;
 	}
 	public String getTxtCNPJCPF() {
 		return txtCNPJCPF;

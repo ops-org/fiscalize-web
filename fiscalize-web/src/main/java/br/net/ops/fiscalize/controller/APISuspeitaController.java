@@ -42,7 +42,7 @@ public class APISuspeitaController extends ControllerBase {
 							  @RequestParam(required=true) Boolean suspeita,
 							  @RequestParam(required=true) Boolean suspeitaValor,
 							  @RequestParam(required=true) Boolean suspeitaObjeto,
-							  @RequestParam(required=true) Boolean suspeitaFornecedor,
+							  @RequestParam(required=true) Boolean suspeitaBeneficiario,
 							  @RequestParam(required=false) String comentarios) {
 		
 		
@@ -56,7 +56,7 @@ public class APISuspeitaController extends ControllerBase {
 		objSuspeita.setSuspeita(suspeita);
 		objSuspeita.setSuspeitaValor(suspeitaValor);
 		objSuspeita.setSuspeitaObjeto(suspeitaObjeto);
-		objSuspeita.setSuspeitaFornecedor(suspeitaFornecedor);
+		objSuspeita.setSuspeitaBeneficiario(suspeitaBeneficiario);
 		objSuspeita.setComentarios(comentarios);
 		
 		objSuspeita.setUsuario(usuario);

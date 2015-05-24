@@ -23,7 +23,7 @@ public class Suspeita {
 	@Expose private Boolean suspeita;
 	@Expose private Boolean suspeitaValor;
 	@Expose private Boolean suspeitaObjeto;
-	@Expose private Boolean suspeitaFornecedor;
+	@Expose private Boolean suspeitaBeneficiario;
 	@Expose private String comentarios;
 	
 	@Temporal(TemporalType.TIMESTAMP)
@@ -69,12 +69,12 @@ public class Suspeita {
 		this.suspeitaObjeto = suspeitaObjeto;
 	}
 
-	public Boolean getSuspeitaFornecedor() {
-		return suspeitaFornecedor;
+	public Boolean getSuspeitaBeneficiario() {
+		return suspeitaBeneficiario;
 	}
 
-	public void setSuspeitaFornecedor(Boolean suspeitaFornecedor) {
-		this.suspeitaFornecedor = suspeitaFornecedor;
+	public void setSuspeitaBeneficiario(Boolean suspeitaBeneficiario) {
+		this.suspeitaBeneficiario = suspeitaBeneficiario;
 	}
 
 	public String getComentarios() {

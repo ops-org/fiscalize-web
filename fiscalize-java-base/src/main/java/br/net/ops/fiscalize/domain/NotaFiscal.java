@@ -44,7 +44,7 @@ public class NotaFiscal {
 	
 	@Expose private String descricao;
 	@Expose private String descricaoSubCota;
-	@Expose private String fornecedor;
+	@Expose private String beneficiario;
 	@Expose private String cpfCnpj;
 	@Expose private Integer ano;
 	@Expose private Integer mes;
@@ -196,12 +196,12 @@ public class NotaFiscal {
 		this.descricaoSubCota = descricaoSubCota;
 	}
 
-	public String getFornecedor() {
-		return fornecedor;
+	public String getBeneficiario() {
+		return beneficiario;
 	}
 
-	public void setFornecedor(String fornecedor) {
-		this.fornecedor = fornecedor;
+	public void setBeneficiario(String fornecedor) {
+		this.beneficiario = fornecedor;
 	}
 
 	public String getCpfCnpj() {
