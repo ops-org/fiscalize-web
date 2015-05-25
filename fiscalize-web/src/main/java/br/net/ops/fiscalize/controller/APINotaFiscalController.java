@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import br.net.ops.fiscalize.domain.NotaFiscal;
+import br.net.ops.fiscalize.pojo.Erro;
 import br.net.ops.fiscalize.service.RestService;
+import br.net.ops.fiscalize.webutil.BundleUtils;
 import br.net.ops.fiscalize.webutil.Utilidade;
 import br.net.ops.fiscalize.webutil.base.ControllerBase;
 
@@ -41,7 +43,12 @@ public class APINotaFiscalController extends ControllerBase {
 				.setDateFormat("dd/MM/yyyy HH:mm:ss")
 				.excludeFieldsWithoutExposeAnnotation().create();
 			
-			response.getWriter().write(gson.toJson(notaFiscal));
+			if(notaFiscal!=null) {
+				response.getWriter().write(gson.toJson(notaFiscal));
+			} else {
+				Erro erro = new Erro(BundleUtils.obterMensagem(BundleUtils.EXCEPTION_MESSAGES, "erro.rest.nota.fiscal.nula"));
+				response.getWriter().write(gson.toJson(erro));
+			}
 		} catch(IOException e) {
 			logger.log(Level.WARNING, "Impossível responder requisição! Admin: verificar!");
 		}
