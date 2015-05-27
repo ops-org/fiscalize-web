@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import br.net.ops.fiscalize.domain.NotaFiscal;
@@ -31,12 +32,12 @@ public class APINotaFiscalController extends ControllerBase {
 	
 	@ResponseBody
 	@RequestMapping(value="/recuperar", method=RequestMethod.GET)
-    public void recuperarNotaFiscal(HttpServletResponse response, HttpServletRequest request) {
+    public void recuperarNotaFiscal(HttpServletResponse response, HttpServletRequest request, @RequestParam Integer usuarioId) {
 		logger.log(Level.INFO, "GET - Nota Fiscal aleatória...");
 
 		response.setContentType(Utilidade.HTTP_HEADER_JSON);
 		
-		NotaFiscal notaFiscal = restService.recuperarNotaFiscal();
+		NotaFiscal notaFiscal = restService.recuperarNotaFiscal(usuarioId);
 		
 		try {
 			Gson gson = new GsonBuilder()

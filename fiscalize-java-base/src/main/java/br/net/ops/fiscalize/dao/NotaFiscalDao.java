@@ -9,9 +9,9 @@ import br.net.ops.fiscalize.domain.NotaFiscal;
 @Repository
 public class NotaFiscalDao extends HibernateGenericDao<NotaFiscal, Integer> {
 
-	public NotaFiscal pegarRandomica() {
+	public NotaFiscal pegarRandomica(int usuarioId) {
 		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(NotaFiscal.class);
-		criteria.add(Restrictions.sqlRestriction("1=1 ORDER BY RAND()"));
+		criteria.add(Restrictions.sqlRestriction("notaFiscalId NOT IN (SELECT notaFiscalId FROM Suspeita WHERE usuarioId=" + usuarioId + ") ORDER BY RAND()"));
 		criteria.setMaxResults(1);
 		return (NotaFiscal) criteria.uniqueResult();
 	}
