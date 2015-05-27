@@ -63,9 +63,9 @@ public class RestService extends ServiceBase {
 	}
 	
 	@Transactional
-	public NotaFiscal recuperarNotaFiscal() {
+	public NotaFiscal recuperarNotaFiscal(int usuarioId) {
 		logger.log(Level.CONFIG, "Recuperando nota fiscal...");
-		return notaFiscalDao.pegarRandomica();
+		return notaFiscalDao.pegarRandomica(usuarioId);
 	}
 	
 	@Transactional(rollbackFor=AdicionarSuspeitaException.class)
