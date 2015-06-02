@@ -11,7 +11,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import br.net.ops.fiscalize.R;
-import br.net.ops.fiscalize.exception.UsuarioException;
+import br.net.ops.fiscalize.exception.ResgatarUsuarioException;
 import br.net.ops.fiscalize.helper.NotaFiscalLayoutHelper;
 import br.net.ops.fiscalize.utils.Preferences;
 import br.net.ops.fiscalize.vo.NotaFiscal;
@@ -59,7 +59,7 @@ public class NotaFiscalActivity extends Activity implements DetalhesNotaFiscalLi
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_detalhes_nota_fiscal);
+        setContentView(R.layout.nota_fiscal);
 
         try {
             this.viewGroupNotaFiscal = (ViewGroup) findViewById(R.id.view_group);
@@ -95,7 +95,7 @@ public class NotaFiscalActivity extends Activity implements DetalhesNotaFiscalLi
 
             carregarNotaFiscal();
 
-        } catch (UsuarioException e) {
+        } catch (ResgatarUsuarioException e) {
             Toast.makeText(this, getString(R.string.exception_resgatar_usuario), Toast.LENGTH_LONG).show();
             finish();
         }

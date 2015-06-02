@@ -6,16 +6,16 @@ import android.util.Log;
 import br.net.ops.fiscalize.R;
 
 @SuppressWarnings("serial")
-public class UsuarioException extends BaseException {
+public class ResgatarUsuarioException extends BaseException {
 
 	private final static int KEY = R.string.exception_resgatar_usuario;
 	private final static int LEVEL = Log.WARN;
 	
-	public UsuarioException(String tag, Context context) {
+	public ResgatarUsuarioException(String tag, Context context) {
 		super(context, tag, KEY, LEVEL);
 	}
 
-	public UsuarioException(String tag, Context context, Throwable cause) {
+	public ResgatarUsuarioException(String tag, Context context, Throwable cause) {
 		super(context, tag, KEY, cause, LEVEL);
 	}
 	

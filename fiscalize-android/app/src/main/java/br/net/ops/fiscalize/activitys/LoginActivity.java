@@ -10,7 +10,7 @@ import com.android.volley.RequestQueue;
 
 import br.net.ops.fiscalize.R;
 import br.net.ops.fiscalize.exception.SalvarUsuarioException;
-import br.net.ops.fiscalize.exception.UsuarioException;
+import br.net.ops.fiscalize.exception.ResgatarUsuarioException;
 import br.net.ops.fiscalize.interfaces.LoginListener;
 import br.net.ops.fiscalize.utils.Preferences;
 import br.net.ops.fiscalize.vo.Usuario;
@@ -33,7 +33,7 @@ public class LoginActivity extends Activity implements LoginListener {
         try {
             this.preferences = new Preferences(this);
             usuario = preferences.resgatarUsuario();
-        } catch (UsuarioException e) {
+        } catch (ResgatarUsuarioException e) {
             usuario = new Usuario(); // usuario novo
         }
 

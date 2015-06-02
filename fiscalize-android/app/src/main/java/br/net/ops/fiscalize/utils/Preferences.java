@@ -7,8 +7,9 @@ import android.content.SharedPreferences;
 import org.apache.commons.lang3.StringUtils;
 
 import br.net.ops.fiscalize.exception.DeletarUsuarioException;
+import br.net.ops.fiscalize.exception.ResgatarSuspeitasException;
 import br.net.ops.fiscalize.exception.SalvarUsuarioException;
-import br.net.ops.fiscalize.exception.UsuarioException;
+import br.net.ops.fiscalize.exception.ResgatarUsuarioException;
 import br.net.ops.fiscalize.vo.Usuario;
 
 public class Preferences {
@@ -16,10 +17,20 @@ public class Preferences {
 private static final String TAG = "Preferences";
 
 	public static final String LOGIN_PREFERENCES = "login_preferences";
-    public static final String PREFERENCES_USUARIO_ID = "usuario_id";
-	public static final String PREFERENCES_TOKEN_ID = "token_id";
+	public static final String SUSPEITAS_PREFERENCES = "suspeitas_preferences";
+
+    public static final String USUARIO_ID = "usuario_id";
+	public static final String TOKEN_ID = "token_id";
+
+    public static final String NOTAS_SUSPEITAS = "notas_suspeitas";
+    public static final String NOTAS_LIMPAS = "notas_limpas";
+    public static final String TODAS_NOTAS = "todas_notas";
+    public static final String INICIO = "inicio";
+    public static final String MES = "mes";
 
 	private SharedPreferences loginPreferences = null;
+	private SharedPreferences suspeitaPreferences = null;
+
 	private Context context;
 	
 	public Preferences(Context context) {
@@ -33,12 +44,36 @@ private static final String TAG = "Preferences";
 			return loginPreferences;
 		}
 	}
-	
-	public Usuario resgatarUsuario() throws UsuarioException {
-		String tokenId = getLoginPreferences().getString(PREFERENCES_TOKEN_ID, "");
-        Integer usuarioId = getLoginPreferences().getInt(PREFERENCES_USUARIO_ID, 0);
+
+	private SharedPreferences getSuspeitaPreferences() {
+		if(suspeitaPreferences==null) {
+			return context.getSharedPreferences(SUSPEITAS_PREFERENCES, Activity.MODE_PRIVATE);
+		} else {
+			return suspeitaPreferences;
+		}
+	}
+
+    /*public Usuario resgatarSuspeitas() throws ResgatarSuspeitasException {
+
+        int notasSuspeitas = getSuspeitaPreferences().getInt(NOTAS_SUSPEITAS, 0);
+        int notasLimpas = getSuspeitaPreferences().getInt(NOTAS_LIMPAS, 0);
+
+        Integer usuarioId = getLoginPreferences().getInt(USUARIO_ID, 0);
+        if(StringUtils.isEmpty(tokenId) || usuarioId<=0) {
+            throw new ResgatarUsuarioException(TAG, context);
+        } else {
+            Usuario usuario = new Usuario();
+            usuario.setUsuarioId(usuarioId);
+            usuario.setTokenId(tokenId);
+            return usuario;
+        }
+    }*/
+
+	public Usuario resgatarUsuario() throws ResgatarUsuarioException {
+		String tokenId = getLoginPreferences().getString(TOKEN_ID, "");
+        Integer usuarioId = getLoginPreferences().getInt(USUARIO_ID, 0);
 		if(StringUtils.isEmpty(tokenId) || usuarioId<=0) {
-			throw new UsuarioException(TAG, context);
+			throw new ResgatarUsuarioException(TAG, context);
 		} else {
             Usuario usuario = new Usuario();
             usuario.setUsuarioId(usuarioId);
@@ -49,8 +84,8 @@ private static final String TAG = "Preferences";
 	
 	public boolean salvarUsuario(Usuario usuario) throws SalvarUsuarioException {
 		SharedPreferences.Editor editor = getLoginPreferences().edit();
-		editor.putString(PREFERENCES_TOKEN_ID, usuario.getTokenId());
-        editor.putInt(PREFERENCES_USUARIO_ID, usuario.getUsuarioId());
+		editor.putString(TOKEN_ID, usuario.getTokenId());
+        editor.putInt(USUARIO_ID, usuario.getUsuarioId());
 		if(!editor.commit()) {
 			throw new SalvarUsuarioException(TAG, context);
 		}
@@ -59,8 +94,8 @@ private static final String TAG = "Preferences";
 	
 	public boolean deletarUsuario() throws DeletarUsuarioException {
 		SharedPreferences.Editor editor = getLoginPreferences().edit();
-		editor.remove(PREFERENCES_TOKEN_ID);
-        editor.remove(PREFERENCES_USUARIO_ID);
+		editor.remove(TOKEN_ID);
+        editor.remove(USUARIO_ID);
 		if(!editor.commit()) {
 			throw new DeletarUsuarioException(TAG, context);
 		}

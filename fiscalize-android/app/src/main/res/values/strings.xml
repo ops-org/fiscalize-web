@@ -47,6 +47,10 @@
     <string name="exception_salvar_usuario">Impossível salvar usuário!</string>
     <string name="exception_deletar_usuario">Impossível deletar usuário!</string>
 
+    <!-- Suspeita -->
+    <string name="exception_resgatar_suspeitas">Impossível resgatar suspeitas das preferências!</string>
+    <string name="exception_salvar_suspeitas">Impossível salvar suspeitas nas preferências!</string>
+
     <!-- Exceptions Geral -->
     <string name="exception_rest">Erro ao contatar servidor!</string>
     <string name="exception_comunicacao">Falha na comunicação!</string>
