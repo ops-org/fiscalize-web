@@ -6,16 +6,16 @@ import android.util.Log;
 import br.net.ops.fiscalize.R;
 
 @SuppressWarnings("serial")
-public class SalvarSuspeitasException extends BaseException {
+public class UsuarioResgatarException extends BaseException {
 
-	private final static int KEY = R.string.exception_salvar_suspeitas;
+	private final static int KEY = R.string.exception_usuario_resgatar;
 	private final static int LEVEL = Log.WARN;
-
-	public SalvarSuspeitasException(String tag, Context context) {
+	
+	public UsuarioResgatarException(String tag, Context context) {
 		super(context, tag, KEY, LEVEL);
 	}
 
-	public SalvarSuspeitasException(String tag, Context context, Throwable cause) {
+	public UsuarioResgatarException(String tag, Context context, Throwable cause) {
 		super(context, tag, KEY, cause, LEVEL);
 	}
 	

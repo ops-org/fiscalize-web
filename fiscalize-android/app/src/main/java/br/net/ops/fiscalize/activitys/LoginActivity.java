@@ -10,9 +10,9 @@ import com.android.volley.RequestQueue;
 
 import br.net.ops.fiscalize.R;
 import br.net.ops.fiscalize.exception.SalvarUsuarioException;
-import br.net.ops.fiscalize.exception.ResgatarUsuarioException;
+import br.net.ops.fiscalize.exception.UsuarioResgatarException;
 import br.net.ops.fiscalize.interfaces.LoginListener;
-import br.net.ops.fiscalize.utils.Preferences;
+import br.net.ops.fiscalize.preferences.UsuarioPreferences;
 import br.net.ops.fiscalize.vo.Usuario;
 import br.net.ops.fiscalize.volley.AutorizarVolley;
 import br.net.ops.fiscalize.volley.VolleySingleton;
@@ -22,7 +22,7 @@ public class LoginActivity extends Activity implements LoginListener {
 
     private static final String TAG = "LoginActivity";
 
-    private Preferences preferences;
+    private UsuarioPreferences usuarioPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,9 +31,9 @@ public class LoginActivity extends Activity implements LoginListener {
 
         Usuario usuario;
         try {
-            this.preferences = new Preferences(this);
-            usuario = preferences.resgatarUsuario();
-        } catch (ResgatarUsuarioException e) {
+            this.usuarioPreferences = new UsuarioPreferences(this);
+            usuario = usuarioPreferences.resgatar();
+        } catch (UsuarioResgatarException e) {
             usuario = new Usuario(); // usuario novo
         }
 
@@ -46,7 +46,7 @@ public class LoginActivity extends Activity implements LoginListener {
     @Override
     public void onLoginRealizado(Usuario usuario) {
         try {
-            preferences.salvarUsuario(usuario);
+            usuarioPreferences.salvar(usuario);
             Intent irNotaFiscal = new Intent(this, NotaFiscalActivity.class);
             startActivity(irNotaFiscal);
             finish();

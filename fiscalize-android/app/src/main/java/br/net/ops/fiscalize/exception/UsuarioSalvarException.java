@@ -6,16 +6,16 @@ import android.util.Log;
 import br.net.ops.fiscalize.R;
 
 @SuppressWarnings("serial")
-public class DeletarUsuarioException extends BaseException {
+public class UsuarioSalvarException extends BaseException {
 
-	private final static int KEY = R.string.exception_deletar_usuario;
+	private final static int KEY = R.string.exception_usuario_salvar;
 	private final static int LEVEL = Log.ERROR;
 	
-	public DeletarUsuarioException(String tag, Context context) {
+	public UsuarioSalvarException(String tag, Context context) {
 		super(context, tag, KEY, LEVEL);
 	}
 
-	public DeletarUsuarioException(String tag, Context context, Throwable cause) {
+	public UsuarioSalvarException(String tag, Context context, Throwable cause) {
 		super(context, tag, KEY, cause, LEVEL);
 	}
 	

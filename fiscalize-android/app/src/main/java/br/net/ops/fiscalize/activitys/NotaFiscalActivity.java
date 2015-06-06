@@ -11,9 +11,9 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import br.net.ops.fiscalize.R;
-import br.net.ops.fiscalize.exception.ResgatarUsuarioException;
+import br.net.ops.fiscalize.exception.UsuarioResgatarException;
 import br.net.ops.fiscalize.helper.NotaFiscalLayoutHelper;
-import br.net.ops.fiscalize.utils.Preferences;
+import br.net.ops.fiscalize.preferences.UsuarioPreferences;
 import br.net.ops.fiscalize.vo.NotaFiscal;
 import br.net.ops.fiscalize.vo.Suspeita;
 import br.net.ops.fiscalize.vo.Usuario;
@@ -48,7 +48,7 @@ public class NotaFiscalActivity extends Activity implements DetalhesNotaFiscalLi
     private Button buttonBeneficiarioSim;
     private Button buttonBeneficiarioNao;
 
-    private Preferences preferences;
+    private UsuarioPreferences usuarioPreferences;
 
     private Usuario usuario;
     private Suspeita suspeita;
@@ -90,12 +90,12 @@ public class NotaFiscalActivity extends Activity implements DetalhesNotaFiscalLi
             this.buttonBeneficiarioSim = (Button) findViewById(R.id.button_suspeita_beneficiario_sim);
             this.buttonBeneficiarioNao = (Button) findViewById(R.id.button_suspeita_beneficiario_nao);
 
-            this.preferences = new Preferences(this);
-            this.usuario = preferences.resgatarUsuario();
+            this.usuarioPreferences = new UsuarioPreferences(this);
+            this.usuario = usuarioPreferences.resgatar();
 
             carregarNotaFiscal();
 
-        } catch (ResgatarUsuarioException e) {
+        } catch (UsuarioResgatarException e) {
             Toast.makeText(this, getString(R.string.exception_resgatar_usuario), Toast.LENGTH_LONG).show();
             finish();
         }
