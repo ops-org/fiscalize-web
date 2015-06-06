@@ -10,6 +10,12 @@ public class Estatisticas {
 
     private Date dataInicio;
 
+    public static Estatisticas criarEstatisticas() {
+        Estatisticas estatisticas = new Estatisticas();
+        estatisticas.setDataInicio(new Date(System.currentTimeMillis()));
+        return estatisticas;
+    }
+
     public int getQuantidadeSuspeitas() {
         return quantidadeSuspeitas;
     }

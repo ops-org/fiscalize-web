@@ -1,7 +1,5 @@
 package br.net.ops.fiscalize.activitys;
 
-import com.android.volley.RequestQueue;
-
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,10 +8,15 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.android.volley.RequestQueue;
+
 import br.net.ops.fiscalize.R;
+import br.net.ops.fiscalize.exception.EstatisticasSalvarException;
 import br.net.ops.fiscalize.exception.UsuarioResgatarException;
 import br.net.ops.fiscalize.helper.NotaFiscalLayoutHelper;
+import br.net.ops.fiscalize.preferences.EstatisticasPreferences;
 import br.net.ops.fiscalize.preferences.UsuarioPreferences;
+import br.net.ops.fiscalize.vo.Estatisticas;
 import br.net.ops.fiscalize.vo.NotaFiscal;
 import br.net.ops.fiscalize.vo.Suspeita;
 import br.net.ops.fiscalize.vo.Usuario;
@@ -49,9 +52,13 @@ public class NotaFiscalActivity extends Activity implements DetalhesNotaFiscalLi
     private Button buttonBeneficiarioNao;
 
     private UsuarioPreferences usuarioPreferences;
+    private EstatisticasPreferences estatisticasPreferences;
 
     private Usuario usuario;
     private Suspeita suspeita;
+
+    private Estatisticas estatisticasGerais;
+    private Estatisticas estatisticasMes;
 
     private int numeroTentativas = 0;
     private boolean perguntandoSuspeita = false;
@@ -92,6 +99,10 @@ public class NotaFiscalActivity extends Activity implements DetalhesNotaFiscalLi
 
             this.usuarioPreferences = new UsuarioPreferences(this);
             this.usuario = usuarioPreferences.resgatar();
+
+            this.estatisticasPreferences = new EstatisticasPreferences(this);
+            this.estatisticasGerais = estatisticasPreferences.resgatarEstatisticasGerais();
+            this.estatisticasMes = estatisticasPreferences.resgatarEstatisticasMes();
 
             carregarNotaFiscal();
 
@@ -136,6 +147,15 @@ public class NotaFiscalActivity extends Activity implements DetalhesNotaFiscalLi
 
     @Override
     public void onSuspeitaAdicionada(String mensagem) {
+        try {
+            estatisticasPreferences.incrementarEstatisticas(suspeita);
+            
+            this.estatisticasGerais = estatisticasPreferences.resgatarEstatisticasGerais();
+            this.estatisticasMes = estatisticasPreferences.resgatarEstatisticasMes();
+        } catch (EstatisticasSalvarException e) {
+            Log.e(TAG, e.getLocalizedMessage());
+        }
+
         carregarNotaFiscal();
         exibirSuspeita();
     }
@@ -157,12 +177,12 @@ public class NotaFiscalActivity extends Activity implements DetalhesNotaFiscalLi
         }
     }
 
-    private void adicionarSuspeitaNotaSuspeita() {
+    private void adicionarNotaSuspeita() {
         suspeita.setSuspeita(true);
         adicionarSuspeita();
     }
 
-    private void adicionarSuspeitaNotaLimpa() {
+    private void adicionarNotaLimpa() {
         suspeita.setSuspeita(false);
         suspeita.setSuspeitaValor(false);
         suspeita.setSuspeitaObjeto(false);
@@ -201,7 +221,7 @@ public class NotaFiscalActivity extends Activity implements DetalhesNotaFiscalLi
         buttonLimpa.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                adicionarSuspeitaNotaLimpa();
+                adicionarNotaLimpa();
             }
         });
         buttonNaoSei.setOnClickListener(new View.OnClickListener() {
@@ -253,7 +273,7 @@ public class NotaFiscalActivity extends Activity implements DetalhesNotaFiscalLi
             public void onClick(View v) {
                 perguntandoSuspeita = false;
                 suspeita.setSuspeitaBeneficiario(true);
-                adicionarSuspeitaNotaSuspeita();
+                adicionarNotaSuspeita();
             }
         });
         buttonBeneficiarioNao.setOnClickListener(new View.OnClickListener() {
@@ -261,7 +281,7 @@ public class NotaFiscalActivity extends Activity implements DetalhesNotaFiscalLi
             public void onClick(View v) {
                 perguntandoSuspeita = false;
                 suspeita.setSuspeitaBeneficiario(false);
-                adicionarSuspeitaNotaSuspeita();
+                adicionarNotaSuspeita();
             }
         });
 
