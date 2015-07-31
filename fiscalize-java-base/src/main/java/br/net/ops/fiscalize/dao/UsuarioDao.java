@@ -9,7 +9,7 @@ import br.net.ops.fiscalize.domain.Usuario;
 @Repository
 public class UsuarioDao extends HibernateGenericDao<Usuario, Integer> {
 
-	public Usuario criarAutorizar() {
+	public Usuario criar() {
 		Usuario usuario = new Usuario();
 		usuario.setTokenId(UUID.randomUUID().toString());
 		usuario.setUsuarioId(this.save(usuario));
