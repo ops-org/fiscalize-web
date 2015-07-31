@@ -1,10 +1,7 @@
-package br.net.ops.fiscalize.pojo;
-
-import javax.persistence.Entity;
+package br.net.ops.fiscalize.pojo.retorno;
 
 import com.google.gson.annotations.Expose;
 
-@Entity
 public class Erro extends Retorno {
 
 	@Expose private String erro;

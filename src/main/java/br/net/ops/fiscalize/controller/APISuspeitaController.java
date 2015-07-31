@@ -18,9 +18,9 @@ import br.net.ops.fiscalize.domain.NotaFiscal;
 import br.net.ops.fiscalize.domain.Suspeita;
 import br.net.ops.fiscalize.domain.Usuario;
 import br.net.ops.fiscalize.exception.AdicionarSuspeitaException;
-import br.net.ops.fiscalize.pojo.Erro;
-import br.net.ops.fiscalize.pojo.Mensagem;
-import br.net.ops.fiscalize.pojo.Retorno;
+import br.net.ops.fiscalize.pojo.retorno.Erro;
+import br.net.ops.fiscalize.pojo.retorno.Mensagem;
+import br.net.ops.fiscalize.pojo.retorno.Retorno;
 import br.net.ops.fiscalize.service.RestService;
 import br.net.ops.fiscalize.webutil.BundleUtils;
 import br.net.ops.fiscalize.webutil.Utilidade;
@@ -37,7 +37,7 @@ public class APISuspeitaController extends ControllerBase {
 	private RestService restService;
 	
 	@ModelAttribute
-	public Suspeita montarSuspeita(@RequestParam(required=true) Integer usuarioId, 
+	public Suspeita newRequest(@RequestParam(required=true) String tokenId, 
 							  @RequestParam(required=true) Integer notaFiscalId,
 							  @RequestParam(required=true) Boolean suspeita,
 							  @RequestParam(required=true) Boolean suspeitaValor,
@@ -46,23 +46,27 @@ public class APISuspeitaController extends ControllerBase {
 							  @RequestParam(required=false) String comentarios) {
 		
 		
-		Usuario usuario = new Usuario();
-		usuario.setUsuarioId(usuarioId);
+		Usuario autorizado = restService.getUsuarioAutorizado(tokenId);
 
-		NotaFiscal notaFiscal = new NotaFiscal();
-		notaFiscal.setNotaFiscalId(notaFiscalId);
+		if(autorizado!=null) {
+			NotaFiscal notaFiscal = new NotaFiscal();
+			notaFiscal.setNotaFiscalId(notaFiscalId);
+			
+			Suspeita objSuspeita = new Suspeita();
+			objSuspeita.setSuspeita(suspeita);
+			objSuspeita.setSuspeitaValor(suspeitaValor);
+			objSuspeita.setSuspeitaObjeto(suspeitaObjeto);
+			objSuspeita.setSuspeitaBeneficiario(suspeitaBeneficiario);
+			objSuspeita.setComentarios(comentarios);
+			
+			objSuspeita.setUsuario(autorizado);
+			objSuspeita.setNotaFiscal(notaFiscal);
+			
+			return objSuspeita;
+		} else {
+			return null;
+		}
 		
-		Suspeita objSuspeita = new Suspeita();
-		objSuspeita.setSuspeita(suspeita);
-		objSuspeita.setSuspeitaValor(suspeitaValor);
-		objSuspeita.setSuspeitaObjeto(suspeitaObjeto);
-		objSuspeita.setSuspeitaBeneficiario(suspeitaBeneficiario);
-		objSuspeita.setComentarios(comentarios);
-		
-		objSuspeita.setUsuario(usuario);
-		objSuspeita.setNotaFiscal(notaFiscal);
-		
-		return objSuspeita;
 	}
 	
 	@ResponseBody
@@ -74,8 +78,12 @@ public class APISuspeitaController extends ControllerBase {
 		
 		Retorno retorno;
 		try {
-			restService.adicionarSuspeita(suspeita);
-			retorno = new Mensagem(BundleUtils.obterMensagem(BundleUtils.GLOBAL_MESSAGES, "success.rest.adicionar.suspeita"));
+			if(suspeita!=null) {
+				restService.adicionarSuspeita(suspeita);
+				retorno = new Mensagem(BundleUtils.obterMensagem(BundleUtils.GLOBAL_MESSAGES, "sucesso.rest.adicionar.suspeita"));
+			} else {
+				retorno = new Erro(BundleUtils.obterMensagem(BundleUtils.EXCEPTION_MESSAGES, "erro.rest.nao.autorizado"));
+			}
 		} catch(AdicionarSuspeitaException e) {
 			retorno = new Erro(e.getLocalizedMessage());
 		}

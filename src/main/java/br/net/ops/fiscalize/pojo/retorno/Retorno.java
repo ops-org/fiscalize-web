@@ -1,4 +1,4 @@
-package br.net.ops.fiscalize.pojo;
+package br.net.ops.fiscalize.pojo.retorno;
 
 public class Retorno {
 

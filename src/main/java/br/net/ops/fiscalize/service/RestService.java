@@ -17,6 +17,8 @@ import br.net.ops.fiscalize.domain.NotaFiscal;
 import br.net.ops.fiscalize.domain.Suspeita;
 import br.net.ops.fiscalize.domain.Usuario;
 import br.net.ops.fiscalize.exception.AdicionarSuspeitaException;
+import br.net.ops.fiscalize.exception.UsuarioNaoAutorizadoException;
+import br.net.ops.fiscalize.pojo.PedidoNota;
 import br.net.ops.fiscalize.webutil.Utilidade;
 import br.net.ops.fiscalize.webutil.base.ServiceBase;
 
@@ -36,18 +38,18 @@ public class RestService extends ServiceBase {
 	private Logger logger = Utilidade.getLogger();
 
 	@Transactional
-	public boolean isAutorizado(String tokenId) {
+	public Usuario getUsuarioAutorizado(String tokenId) {
 		logger.log(Level.CONFIG, "Verificando autorização...");
 		
 		Usuario usuario = new Usuario();
 		usuario.setTokenId(tokenId);
 
-		boolean autorizado;
+		Usuario autorizado;
 		List<Usuario> usuarios = usuarioDao.findByExample(usuario);
 		if(usuarios.size()==1) {
-			autorizado = true;
+			autorizado = usuarios.get(0);
 		} else {
-			autorizado = false;
+			autorizado = null;
 		}
 		
 		return autorizado;
@@ -55,17 +57,23 @@ public class RestService extends ServiceBase {
 	
 	@Transactional
 	public Usuario cadastrarAutorizar(Usuario usuario) {
-		if(isAutorizado(usuario.getTokenId())) {
-			return usuario; // Está cadastrado e autorizado
+		Usuario autorizado = getUsuarioAutorizado(usuario.getTokenId()); 
+		if(autorizado!=null) {
+			return autorizado; // Está cadastrado e autorizado
 		} else {
-			return usuarioDao.criarAutorizar(); // criar e autorizar
+			return usuarioDao.criar(); // criar (e autorizar)
 		}		
 	}
 	
 	@Transactional
-	public NotaFiscal recuperarNotaFiscal(int usuarioId) {
+	public NotaFiscal recuperarNotaFiscal(PedidoNota pedidoNota) throws UsuarioNaoAutorizadoException {
 		logger.log(Level.CONFIG, "Recuperando nota fiscal...");
-		return notaFiscalDao.pegarRandomica(usuarioId);
+		Usuario autorizado = getUsuarioAutorizado(pedidoNota.getTokenId());
+		if(autorizado!=null) {		
+			return notaFiscalDao.pegarRandomica(pedidoNota, autorizado.getUsuarioId());
+		} else {
+			throw new UsuarioNaoAutorizadoException();
+		}
 	}
 	
 	@Transactional(rollbackFor=AdicionarSuspeitaException.class)
