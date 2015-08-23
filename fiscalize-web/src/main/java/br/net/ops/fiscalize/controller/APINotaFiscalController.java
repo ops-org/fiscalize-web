@@ -35,14 +35,14 @@ public class APINotaFiscalController extends ControllerBase {
 	
 	@ModelAttribute
 	public PedidoNota newRequest(@RequestParam(required=true) String tokenId,
-								@RequestParam(required=false) int partidoId,
-								@RequestParam(required=false) int parlamentarId) {
+								@RequestParam(required=false) Integer partidoId,
+								@RequestParam(required=false) Integer parlamentarId) {
 		
 		PedidoNota pedidoNota = new PedidoNota();
 		
 		pedidoNota.setTokenId(tokenId);
-		pedidoNota.setPartidoId(partidoId);
-		pedidoNota.setParlamentarId(parlamentarId);
+		pedidoNota.setPartidoId(partidoId==null?0:partidoId);
+		pedidoNota.setParlamentarId(parlamentarId==null?0:parlamentarId);
 		
 		return pedidoNota;
 		
