@@ -209,8 +209,6 @@ CREATE INDEX `fk_Suspeita_notafiscal1_idx` ON `fiscalize`.`Suspeita` (`notaFisca
 
 CREATE INDEX `fk_Suspeita_Usuario1_idx` ON `fiscalize`.`Suspeita` (`usuarioId` ASC);
 
-CREATE UNIQUE INDEX `NaoRepetir` ON `fiscalize`.`Suspeita` (`notaFiscalId` ASC, `usuarioId` ASC);
-
 
 -- -----------------------------------------------------
 -- Table `fiscalize`.`Analise`

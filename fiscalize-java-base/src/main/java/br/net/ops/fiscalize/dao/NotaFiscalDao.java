@@ -1,7 +1,5 @@
 package br.net.ops.fiscalize.dao;
 
-import javax.persistence.criteria.JoinType;
-
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
@@ -20,7 +18,7 @@ public class NotaFiscalDao extends HibernateGenericDao<NotaFiscal, Integer> {
 			criteria.createAlias("parlamentar.partido", "partido");
 			criteria.add(Restrictions.eq("partido.partidoId", pedidoNota.getPartidoId()));
 		}
-		criteria.add(Restrictions.sqlRestriction("notaFiscalId NOT IN (SELECT notaFiscalId FROM Suspeita WHERE usuarioId=" + usuarioId + ") ORDER BY RAND()"));
+		//criteria.add(Restrictions.sqlRestriction("notaFiscalId NOT IN (SELECT notaFiscalId FROM Suspeita WHERE usuarioId=" + usuarioId + ") ORDER BY RAND()"));
 		criteria.setMaxResults(1);
 		return (NotaFiscal) criteria.uniqueResult();
 	}
