@@ -19,6 +19,7 @@ public class NotaFiscalDao extends HibernateGenericDao<NotaFiscal, Integer> {
 			criteria.add(Restrictions.eq("partido.partidoId", pedidoNota.getPartidoId()));
 		}
 		//criteria.add(Restrictions.sqlRestriction("notaFiscalId NOT IN (SELECT notaFiscalId FROM Suspeita WHERE usuarioId=" + usuarioId + ") ORDER BY RAND()"));
+		criteria.add(Restrictions.sqlRestriction(" ORDER BY RAND()"));
 		criteria.setMaxResults(1);
 		return (NotaFiscal) criteria.uniqueResult();
 	}
