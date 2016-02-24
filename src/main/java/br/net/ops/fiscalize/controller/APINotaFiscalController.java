@@ -1,6 +1,7 @@
 package br.net.ops.fiscalize.controller;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.logging.Level;
 
 import javax.servlet.http.HttpServletRequest;
@@ -66,6 +67,40 @@ public class APINotaFiscalController extends ControllerBase {
 			
 				if(notaFiscal!=null) {
 					response.getWriter().write(gson.toJson(notaFiscal));
+				} else {
+					Erro erro = new Erro(BundleUtils.obterMensagem(BundleUtils.EXCEPTION_MESSAGES, "erro.rest.nota.fiscal.nula"));
+					response.getWriter().write(gson.toJson(erro));
+				}
+				
+			} catch(UsuarioNaoAutorizadoException e) {
+				Erro erro = new Erro(e.getLocalizedMessage());
+				response.getWriter().write(gson.toJson(erro));
+			}
+			
+		} catch(IOException e) {
+			logger.log(Level.WARNING, "Impossível responder requisição! Admin: verificar!");
+		}
+		
+    }
+	
+	@ResponseBody
+	@RequestMapping(value="/recuperarLista", method=RequestMethod.POST)
+    public void recuperarListNotaFiscal(HttpServletResponse response, HttpServletRequest request, PedidoNota pedidoNota) {
+		logger.log(Level.INFO, "GET - Lista de Notas Fiscais aleatórias...");
+
+		response.setContentType(Utilidade.HTTP_HEADER_JSON);
+		
+		try {
+
+			Gson gson = new GsonBuilder()
+				.setDateFormat("dd/MM/yyyy HH:mm:ss")
+				.excludeFieldsWithoutExposeAnnotation().create();
+			
+			try {
+				List<NotaFiscal> notasFiscais = restService.recuperarListaNotaFiscal(pedidoNota);
+			
+				if(notasFiscais!=null && notasFiscais.size()>0) {
+					response.getWriter().write(gson.toJson(notasFiscais));
 				} else {
 					Erro erro = new Erro(BundleUtils.obterMensagem(BundleUtils.EXCEPTION_MESSAGES, "erro.rest.nota.fiscal.nula"));
 					response.getWriter().write(gson.toJson(erro));

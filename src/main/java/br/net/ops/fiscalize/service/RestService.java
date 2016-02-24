@@ -1,5 +1,6 @@
 package br.net.ops.fiscalize.service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
@@ -25,6 +26,8 @@ import br.net.ops.fiscalize.webutil.base.ServiceBase;
 @Service
 public class RestService extends ServiceBase {
 
+	private static final int NUMERO_PADRAO_LISTA_NOTAS = 3; 
+	
 	@Autowired
 	private UsuarioDao usuarioDao;
 	
@@ -34,7 +37,6 @@ public class RestService extends ServiceBase {
 	@Autowired
 	private SuspeitaDao suspeitaDao;
 
-	
 	private Logger logger = Utilidade.getLogger();
 
 	@Transactional
@@ -71,6 +73,23 @@ public class RestService extends ServiceBase {
 		Usuario autorizado = getUsuarioAutorizado(pedidoNota.getTokenId());
 		if(autorizado!=null) {		
 			return notaFiscalDao.pegarRandomica(pedidoNota, autorizado.getUsuarioId());
+		} else {
+			throw new UsuarioNaoAutorizadoException();
+		}
+	}
+	
+	@Transactional
+	public List<NotaFiscal> recuperarListaNotaFiscal(PedidoNota pedidoNota) throws UsuarioNaoAutorizadoException {
+		logger.log(Level.CONFIG, "Recuperando notas fiscais...");
+		Usuario autorizado = getUsuarioAutorizado(pedidoNota.getTokenId());
+		
+		if(autorizado!=null) {		
+			if(pedidoNota.getQuantidade()<=0) pedidoNota.setQuantidade(NUMERO_PADRAO_LISTA_NOTAS);
+			List<NotaFiscal> retorno = new ArrayList<NotaFiscal>();
+			for(int i=0; i<pedidoNota.getQuantidade(); i++) {
+				retorno.add(notaFiscalDao.pegarRandomica(pedidoNota));
+			}
+			return retorno;
 		} else {
 			throw new UsuarioNaoAutorizadoException();
 		}
