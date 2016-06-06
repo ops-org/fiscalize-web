@@ -6,17 +6,13 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import br.net.ops.fiscalize.dao.*;
+import br.net.ops.fiscalize.domain.*;
 import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import br.net.ops.fiscalize.dao.NotaFiscalDao;
-import br.net.ops.fiscalize.dao.SuspeitaDao;
-import br.net.ops.fiscalize.dao.UsuarioDao;
-import br.net.ops.fiscalize.domain.NotaFiscal;
-import br.net.ops.fiscalize.domain.Suspeita;
-import br.net.ops.fiscalize.domain.Usuario;
 import br.net.ops.fiscalize.exception.AdicionarSuspeitaException;
 import br.net.ops.fiscalize.exception.UsuarioNaoAutorizadoException;
 import br.net.ops.fiscalize.pojo.PedidoNota;
@@ -36,6 +32,12 @@ public class RestService extends ServiceBase {
 
 	@Autowired
 	private SuspeitaDao suspeitaDao;
+
+	@Autowired
+	private ParlamentarDao parlamentarDao;
+
+	@Autowired
+	private PartidoDao partidoDao;
 
 	private Logger logger = Utilidade.getLogger();
 
@@ -72,7 +74,7 @@ public class RestService extends ServiceBase {
 		logger.log(Level.CONFIG, "Recuperando nota fiscal...");
 		Usuario autorizado = getUsuarioAutorizado(pedidoNota.getTokenId());
 		if(autorizado!=null) {		
-			return notaFiscalDao.pegarRandomica(pedidoNota, autorizado.getUsuarioId());
+			return notaFiscalDao.pegarRandomica(pedidoNota);
 		} else {
 			throw new UsuarioNaoAutorizadoException();
 		}
@@ -93,6 +95,20 @@ public class RestService extends ServiceBase {
 		} else {
 			throw new UsuarioNaoAutorizadoException();
 		}
+	}
+
+	@Transactional
+	public List<Parlamentar> recuperarParlamentares() {
+		logger.log(Level.CONFIG, "Recuperando lista de parlamentares...");
+
+		return parlamentarDao.recuperarParlamentares();
+	}
+
+	@Transactional
+	public List<Partido> recuperarPartidos() {
+		logger.log(Level.CONFIG, "Recuperando lista de partidos...");
+
+		return partidoDao.recuperarPartidos();
 	}
 	
 	@Transactional(rollbackFor=AdicionarSuspeitaException.class)
